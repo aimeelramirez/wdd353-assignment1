@@ -1,3 +1,4 @@
+
 class Grader
    def initialize(name, assignment, grade)
     @read_grade = ""
