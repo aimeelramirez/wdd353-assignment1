@@ -1,8 +1,12 @@
 # Assignment #1 (Grader)
 
-[/example-python/assignment1.py](/example-python/assignment1.py)
-[/example-ruby/assignment1.rb](/example-ruby/assignment1.rb)
-[/example-node/assignment1.js](/example-node/assignment1.js)
+[Youtube](https://youtu.be/XxWceYX_8OY)
+
+[Python file](/example-python/assignment1.py)
+
+[Ruby file](/example-ruby/assignment1.rb)
+
+[Node file](/example-node/assignment1.js)
 
 ```
 
