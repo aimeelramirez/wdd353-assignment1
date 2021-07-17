@@ -13,7 +13,7 @@ class Grader:
           self.grades.append('B')
         elif self.grade >= 70.00:
           self.grades.append('C')
-        elif self.grade < 70.00 & self.grade >= 60.00:
+        elif self.grade >= 60.00:
           self.grades.append('D')
         elif self.grade < 60.00:
           self.grades.append('F')
@@ -28,7 +28,7 @@ requestGrade = input("Please enter grade:")
 
 def getMain():
   showStudent = Grader(requestName, requestAssignment, requestGrade)
-  showStudent = Grader( requestName, requestAssignment, requestGrade)
+#   showStudent = Grader( requestName, requestAssignment, requestGrade)
   showStudent.displayStudent()
 
 #get the true on value if not right
@@ -46,6 +46,95 @@ while res:
     print("Please enter a number.")
     res = False
 
+"""
 
+Local Machine:
 
-     
+aimeelynnramirez@Aimees-MBP example-python % python assignment1.py
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:94
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  A
+aimeelynnramirez@Aimees-MBP example-python % python assignment1.py
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:54
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  F
+aimeelynnramirez@Aimees-MBP example-python % python assignment1.py
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:89.9
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  B
+aimeelynnramirez@Aimees-MBP example-python % python assignment1.py
+Please enter student's name: aimee
+Please enter student's assignment: test 
+Please enter grade: 60.01
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  D
+aimeelynnramirez@Aimees-MBP example-python % python assignment1.py
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:102.1
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  A
+
+SSH Machine:
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:94
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  A
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: 54
+Please enter student's assignment: 54
+Please enter grade:54
+Student's Name:  54 
+Assignment:  54 
+Grade:  F
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:94
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  A
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:54
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  F
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:89.9
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  B
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: test
+Please enter student's assignment: test1
+Please enter grade:60.01
+Student's Name:  test 
+Assignment:  test1 
+Grade:  D
+vagrant@ubuntu-focal:/var/www/html/wdd353-grader/example-python$ python3 assignment1.py 
+Please enter student's name: aimee
+Please enter student's assignment: test
+Please enter grade:102.01
+Student's Name:  aimee 
+Assignment:  test 
+Grade:  A
+
+"""
