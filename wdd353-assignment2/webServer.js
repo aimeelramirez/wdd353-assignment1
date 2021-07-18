@@ -1,4 +1,3 @@
-
 const https = require('https');
 const fs = require('fs')
 const options = require('./config')
@@ -14,13 +13,10 @@ https
     .createServer(options, (req, res) => {
 
         console.log(`Your server is running on port ${port}`);
-        // let parsed = url.parseQueryString(req.url)
-        // let filename = path.parse(req.url)  
-        // console.log(__dirname)
+        //let parsed = url.parse(req.url) // The declaration was marked as deprecated here.//
         let filenameUrl = path.join(req.url)
         let filename = path.parse(filenameUrl)
 
-        // console.log(filename)
         filen = filename.name === "" ? "index" : filename.name;
         ext = filename.ext === "" ? ".html" : filename.ext;
         dir = filename.dir === "/" ? "" : filename.dir + "/";
@@ -37,18 +33,17 @@ https
         }
         if (f) {
             fs.readFile(f, ((err, data) => {
-
                 if (page) {
                     // console.log(mimeTypes.hasOwnProperty(ext))
                     if (mimeTypes.hasOwnProperty(ext)) {
-                        // console.log(page)
-                        res.writeHead(200, { 'Content-Type': ext })
-                        //get the script to read correctly
+                        res.writeHead(200, {
+                            'Content-Type': ext
+                        })
                         if (f === 'public/js/scripts.js') {
+                            //get the script to read correctly
                             var writeScript = fs.readFileSync(f);
                             res.write(writeScript);
                         } else if (f !== 'public/js/scripts.js') {
-
                             //i want the styles to load 
                             var writeStyles = fs.readFileSync('public/css/styles.css')
                             res.write('<style>' + writeStyles + '</style>')
@@ -57,16 +52,13 @@ https
                             res.write(writeF);
                             //write localhost
                             res.write('<base href="https://localhost:8080/">')
-
                         }
+                        //verified data
                         // console.log(data)
                         res.end();
-
-
                     }
                 }
             }))
         }
-
     })
     .listen(port);
