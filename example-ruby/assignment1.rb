@@ -37,19 +37,31 @@ puts "Please enter student's assignment \n"
 @assignment = gets
 puts "Please enter student's grade \n"
 @grade = gets
-@convertGrade = @grade.to_f
-
 
 def main 
-showStudent = Grader.new(@name, @assignment, @convertGrade)
-showStudent.display_student(@convertGrade.round(2))
+showStudent = Grader.new(@name, @assignment, @grade)
+showStudent.display_student(@grade.to_f.round(2))
 showStudent.display_details()
 end
-  if @convertGrade.is_a? Float 
-    puts "grade is a float."
+
+class Object
+  def is_number?
+    to_f.to_s == to_s || to_i.to_s == to_s
+  end
+  def numeric?    
+    Float(self) != nil rescue false
+  end
+end
+
+
+if @grade.numeric?
+    puts "grade is a number."
     main
-  else 
-    puts "Not a float"
+else 
+    puts "Not a number"
     puts "Please enter a number."
  end
+
+
+
 
