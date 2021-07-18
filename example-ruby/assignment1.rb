@@ -44,24 +44,31 @@ showStudent.display_student(@grade.to_f.round(2))
 showStudent.display_details()
 end
 
+#get the valid number
 class Object
-  def is_number?
-    to_f.to_s == to_s || to_i.to_s == to_s
-  end
   def numeric?    
     Float(self) != nil rescue false
+  end
+  def validate
+    while  @grade.numeric? == false
+    puts "Not a number"
+    puts "Please enter a number."
+    @grade = gets
+      if @grade.numeric?
+        puts "grade is a number."
+         main
+      end
+    end
   end
 end
 
 
+
+
+##get number initally
 if @grade.numeric?
     puts "grade is a number."
     main
 else 
-    puts "Not a number"
-    puts "Please enter a number."
- end
-
-
-
-
+  validate()
+end
