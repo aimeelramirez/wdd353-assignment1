@@ -11265,9 +11265,19 @@ dd {
   font-family: "Font Awesome 5 Free";
   content: "\f007";
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 0.5rem;
   padding: 0rem 0.5rem;
   color: #a1a1a1;
 }
 
+#list-users > li {
+  display: inline;
+  width: 100px; /* Or whatever */
+  height: 100px; /* Or whatever */
+  padding: 1rem;
+  font-size: 1rem;
+}
+/* #list-users > li > * {
+  display: flex;
+} */
 /* Custom styles on users */
