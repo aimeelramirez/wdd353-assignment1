@@ -37,14 +37,14 @@ while res:
   try : 
     requestGrade = float(requestGrade)
     requestGrade = round(requestGrade,2)
-    
-    res = True
+    # res = True
     getMain()
     res = False
   except ValueError:
     print("Not a float")
     print("Please enter a number.")
-    res = False
+    requestGrade = input("Please enter grade:")
+    # res = False
 
 """
 
