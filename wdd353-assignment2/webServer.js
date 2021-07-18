@@ -4,6 +4,17 @@ const options = require('./config')
 const path = require('path');
 //set port
 const port = 8080
+let sendUsers = `let users = [
+    { "0": "ales" },
+    { "1": "mila" },
+    { "2": "gilbert" },
+    { "3": "gilbert jr." },
+    { "4": "chris" },
+    { "5": "kristine" },
+    { "6": "aimee" }
+]`
+
+console.log(`Starting up server.... https://localhost:${port}`)
 //ssl
 https
     .createServer(options, (req, res) => {
@@ -34,17 +45,32 @@ https
                         })
                         if (f === 'public/js/scripts.js') {
                             //get the script to read correctly
-                            var writeScript = fs.readFileSync(f);
-                            res.write(writeScript);
+                            // var writeScript = fs.readFileSync(f);
+                            // res.write(writeScript);
+                            res.write(sendUsers)
+                            res.write('\nfor(let i = 0; i < users.length; i++){'
+                                + '\n for(const [key, value] of Object.entries(users[i])){' +
+                                '\ndocument.querySelector("#list-users").innerHTML +="<li>"+ `${parseInt(key)+1}: ${value}` +"</li>";' +
+                                ' \n//console.log(`${key}: ${value}`); \n } '
+                                + '}')
                         } else if (f !== 'public/js/scripts.js') {
-                            //i want the styles to load 
-                            var writeStyles = fs.readFileSync('public/css/styles.css')
-                            res.write('<style>' + writeStyles + '</style>')
-                            //i want the files to be written if not on page
-                            var writeF = fs.readFileSync(f, 'utf8')
-                            res.write(writeF);
-                            //write localhost
-                            res.write('<base href="https://localhost:8080/">')
+
+                            if (f === 'public/css/styles.css') {
+                                //i want the styles to load 
+                                var writeStyles = fs.readFileSync('public/css/styles.css')
+                                res.write(writeStyles)
+
+                            } else {
+                                var writeStyles = fs.readFileSync('public/css/styles.css')
+                                res.write('<style>' + writeStyles + '</style>');
+                                //i want the files to be written if not on page
+                                var writeF = fs.readFileSync(f, 'utf8')
+                                res.write(writeF)
+
+                            }
+
+
+
                         }
                         res.end();
                     }
