@@ -31,6 +31,8 @@ class Grader
     #   puts "student's grades: #@letter_grade" 
    end
  end
+
+#ask requests
 puts "Please enter student's name \n"
 @name = gets
 puts "Please enter student's assignment \n"
@@ -38,6 +40,7 @@ puts "Please enter student's assignment \n"
 puts "Please enter student's grade \n"
 @grade = gets
 
+#get main 
 def main 
 showStudent = Grader.new(@name, @assignment, @grade)
 showStudent.display_student(@grade.to_f.round(2))
@@ -62,10 +65,7 @@ class Object
   end
 end
 
-
-
-
-##get number initally
+##get number initally to check
 if @grade.numeric?
     puts "grade is a number."
     main
