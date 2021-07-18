@@ -1,36 +1,37 @@
-# Assignment #1 (Grader)
+# WDD353
 
-```
+## Assignment #1 (Grader)
 
-Assignment #1 (Grader)
+- Assignment link:
 
+  - [Assignment #1](wdd353-assignment1/)
 
-Overview
-Practice several languages to interact with the system
+- File links:
 
+  - [Python file](wdd353-assignment1/example-python/assignment1.py)
 
-Description
+  - [Ruby file](wdd353-assignment1/example-ruby/assignment1.rb)
 
-Using the information you have learned answer the questions below.
+  - [Node file](wdd353-assignment1/example-node/assignment1.js)
 
-Instructions
+- Youtube link:
 
-Use Python, Ruby, and Node languages to produce the following functionalities
-Create a grader
-Create a class "Grader"
-Create methods to output a valid grade
-Using the command line ask user a question for students name
-Using the command line ask user a question for assignment name
-Using the command line ask user a question for grade in numbers
-Return the letter grade for the assignment
-Assign letter grades based on points earned. Using if/else/elseif statements, create a function that returns a letter grade based on the following point breakdowns when called:
-100-90=A, 80-89=B, 79-70=C, 69-60=D, <60=F
-To test your function, try it with these 5 point values and echo the result back out from the value returned from the function:
-1. 94
-2. 54
-3. 89.9
-4. 60.01
-5. 102.1
-Hint: Think about the order in which if/elseif/else evaluates your conditions. Do you test for an "A" condition first and work your way down, or test for "F" and work your way up?
-Show errors in command line if there are any.
-```
+  - [Youtube](https://youtu.be/XxWceYX_8OY)
+
+## Assignment #2 (Web Server)
+
+- Assignment link:
+
+  - [Assignment #2](wdd353-assignment2/)
+
+- Template link:
+
+  - [Simple Sidebar](https://startbootstrap.com/template/simple-sidebar)
+
+- Page links:
+
+  - [Dashboard file](wdd353-assignment2/dashboard.html)
+
+  - [Profile file](wdd353-assignment2/profile.html)
+
+  - [Overview file](wdd353-assignment2/overview.html)

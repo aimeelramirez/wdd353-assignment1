@@ -1,1 +1,6 @@
-# Assignment #2: Web Server
+# wdd353-assignment2
+
+## Run
+
+- npm i
+- npm run serve

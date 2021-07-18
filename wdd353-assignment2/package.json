@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "startbootstrap-simple-sidebar": "^6.0.2"
+  },
+  "name": "wdd353",
+  "version": "1.0.0",
+  "description": "web server",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node webServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aimee ramirez",
+  "license": "ISC"
+}
