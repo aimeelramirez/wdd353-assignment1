@@ -2,18 +2,12 @@ const https = require('https');
 const fs = require('fs')
 const options = require('./config')
 const path = require('path');
-// const url = require('url')
-
-
 //set port
 const port = 8080
-
 //ssl
 https
     .createServer(options, (req, res) => {
-
         console.log(`Your server is running on port ${port}`);
-        //let parsed = url.parse(req.url) // The declaration was marked as deprecated here.//
         let filenameUrl = path.join(req.url)
         let filename = path.parse(filenameUrl)
 
@@ -34,7 +28,6 @@ https
         if (f) {
             fs.readFile(f, ((err, data) => {
                 if (page) {
-                    // console.log(mimeTypes.hasOwnProperty(ext))
                     if (mimeTypes.hasOwnProperty(ext)) {
                         res.writeHead(200, {
                             'Content-Type': ext
@@ -53,8 +46,6 @@ https
                             //write localhost
                             res.write('<base href="https://localhost:8080/">')
                         }
-                        //verified data
-                        // console.log(data)
                         res.end();
                     }
                 }
