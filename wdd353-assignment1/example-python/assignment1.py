@@ -138,4 +138,3 @@ Assignment:  test
 Grade:  A
 
 """
-{"mode":"full","isActive":false}

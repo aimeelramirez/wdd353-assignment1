@@ -72,4 +72,3 @@ if @grade.numeric?
 else 
   validate()
 end
-{"mode":"full","isActive":false}
