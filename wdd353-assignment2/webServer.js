@@ -68,9 +68,6 @@ https
                                 res.write(writeF)
 
                             }
-
-
-
                         }
                         res.end();
                     }
