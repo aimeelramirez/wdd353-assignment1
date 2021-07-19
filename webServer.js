@@ -45,12 +45,12 @@ https
                         })
                         if (f === 'public/js/scripts.js') {
                             //get the script to read correctly
-                            // var writeScript = fs.readFileSync(f);
-                            // res.write(writeScript);
+                            var writeScript = fs.readFileSync(f);
+                            res.write(writeScript);
                             res.write(sendUsers)
                             res.write('\nfor(let i = 0; i < users.length; i++){'
                                 + '\n for(const [key, value] of Object.entries(users[i])){' +
-                                '\ndocument.querySelector("#list-users").innerHTML +="<li>"+ `${parseInt(key)+1}: ${value}` +"</li>";' +
+                                '\ndocument.querySelector("#list-users").innerHTML +="<li>"+ `${parseInt(key)}: ${value}` +"</li>";' +
                                 ' \n//console.log(`${key}: ${value}`); \n } '
                                 + '}')
                         } else if (f !== 'public/js/scripts.js') {

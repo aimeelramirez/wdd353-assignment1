@@ -11237,7 +11237,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 /* CSS Reset =========================== */
-body,
+/* body,
 nav,
 section,
 footer,
@@ -11246,7 +11246,7 @@ h1,
 h2,
 h3,
 p,
-a,
+a, */
 ul,
 li,
 dt,
@@ -11272,8 +11272,8 @@ dd {
 
 #list-users > li {
   display: inline;
-  width: 100px; /* Or whatever */
-  height: 100px; /* Or whatever */
+  width: 100px; 
+  height: 100px;
   padding: 1rem;
   font-size: 1rem;
 }
