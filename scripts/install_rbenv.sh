@@ -27,7 +27,6 @@ is_processed(){
 if  test -d  /home/vagrant/.rbenv/versions/3.0.2;then
     echo "rbenv exists"
      rbenv install -l | grep -v - | tail -1
-
     # echo  ~/.rbenv/bin/rbenv init
     # curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
     #check rbenv repl and ruby
