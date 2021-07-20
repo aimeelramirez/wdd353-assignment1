@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/html":{"guestpath":"/var/www/html","hostpath":"/Users/aimeelynnramirez/Desktop/July2021/sslvagrant","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/aimeelynnramirez/Desktop/July2021/sslvagrant","disabled":false,"__vagrantfile":true}}}

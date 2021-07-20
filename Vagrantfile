@@ -100,11 +100,11 @@ $userScript = <<SCRIPT
     # source where nvm
     sudo SOURCE_NVM=$PATH bash -c "source /usr/local/opt/nvm/nvm.sh && echo 'configuring source'" 
     echo $SOURCE_NVM
-    # Install a node and alias
+    # Install a node, ruby, python, and alias
      if command -v node; then
         echo "Node exists!" 
     else
-        echo "node does not exist" 
+        echo "node does not exist so installing it now." 
         nvm install 0.10.33
         nvm alias default 0.10.33
         nvm use node
@@ -112,19 +112,17 @@ $userScript = <<SCRIPT
     if command -v ruby-build; then
         echo "Ruby exists!"
     else
-       echo "ruby does not exist" 
-       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;echo "CHECKPYRB=true" > scripts/check.sh &&  sudo bash scripts/init_installs.sh && echo 'Running Ruby Manager installs.'"
+       echo "ruby does not exist so installing it now." 
+       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;echo "CHECKPYRB=true" > scripts/check.sh &&  bash scripts/init_installs.sh && echo 'Running Ruby Manager installs.'"
        echo $PATH_RUBY
        ruby -v
     fi
       if command -v pip; then
         echo "Python exists!"
       else
-       echo "python does not exist" 
-       sudo PATH_PY=$PATH bash -c "cd /var/www/html; echo "CHECKPYRB=false" > scripts/check.sh &&  sudo bash scripts/init_installs.sh && echo 'Running Python Manager installs.'"
+       echo "python does not exist so installing it now." 
+       sudo PATH_PY=$PATH bash -c "cd /var/www/html; echo "CHECKPYRB=false" > scripts/check.sh &&  bash scripts/init_installs.sh && echo 'Running Python Manager installs.'"
         echo $PATH_PY
-        sudo PATH_RMPY=$PATH bash -c "sudo rm get-pip.py"
-        echo $PATH_RMPY
       fi
        
     }

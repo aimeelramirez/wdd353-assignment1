@@ -1,10 +1,10 @@
 #!/bin/bash
 # CHECKPYRB=true
-source check.sh
+source scripts/check.sh
 
 on_init(){
-  local var_ruby=`bash install_rbenv.sh`
-  local var_python=`bash install_pip.sh`
+  local var_ruby=`bash  scripts/install_rbenv.sh`
+  local var_python=`bash scripts/install_pip.sh`
   if CHECKPYRB=true; then
     echo "Y" | ${var_ruby}  
   else
