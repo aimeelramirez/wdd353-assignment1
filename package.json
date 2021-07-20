@@ -1,0 +1,20 @@
+{
+  "name": "sslvagrant",
+  "version": "1.0.0",
+  "description": "## Assignment #1 (Grader)",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "test \"$(node -v && sh nameserver.sh)\" != \"$(cat .nvmrc)\" && { unset npm_package_scripts_preinstall npm_config_prefix npm_lifecycle_script && . ~/.nvm/nvm.sh && nvm use;}|| echo",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aimeelramirez/wdd353-assignment1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aimeelramirez/wdd353-assignment1/issues"
+  },
+  "homepage": "https://github.com/aimeelramirez/wdd353-assignment1#readme"
+}

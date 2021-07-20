@@ -19,6 +19,9 @@ Vagrant.configure("2") do |config|
   # config.vm.network "forwarded_port", guest:3306, host:3306
   config.vm.synced_folder "./", "/var/www/html"
 
+  # config.ssh.username = 'vagrant'
+  # config.ssh.password = 'vagrant'
+  # config.ssh.insert_key = 'true'
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -54,14 +57,68 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
-  #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-  # end
-  
+  end
+  $rootScript = <<SCRIPT
+   echo "I am provisioning..."
+   echo Doing it as $USER
+SCRIPT
+
+## This is the script that will install nvm as the default 'vagrant' user
+$userScript = <<SCRIPT
+  cd /home/vagrant
+  # Installing nvm
+  wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+
+  # make a copy to usr/local to read it without .
+  FILE_OPT=/usr/local/opt
+ if test -d $FILE_OPT; then
+    echo "configuring nvm"
+    #delete if exists
+    sudo rm -rf  /usr/local/opt/nvm
+    echo $FILE_OPT
+    (cd $FILE_OPT; echo "I'm now in $PWD"  )
+    sudo PATH_NVM=$PATH bash -c "cp -r /home/vagrant/.nvm  /usr/local/opt/nvm "
+    echo $PATH_NVM
+    # sudo PATH_V=$PATH bash -c "cd /usr/local/opt/nvm; ls "
+    # echo $PATH_V
+    sudo PATH_NL=$PATH bash -c "cd /var/www/html; sudo bash nameserver.sh && echo 'Running nameserver'"
+    echo $PATH_NL
+    # pwd # still in first directory
+    sudo PATH=$PATH bash -c "which node npm pnpm"
+    echo $PATH
+    #sudo mkdir /usr/local/opt/nvm
+    #sudo cd /home/vagrant
+
+    #create the dir to point to local dir
+    export NVM_DIR="/home/vagrant/.nvm"
+      [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+      [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+
+ 
+    # source where nvm
+    sudo SOURCE_NVM=$PATH bash -c "source /usr/local/opt/nvm/nvm.sh && echo 'configuring source'" 
+    echo $SOURCE_NVM
+    # Install a node and alias
+     if command -v nvm; then
+        echo "nvm exists" 
+    else
+        echo "nvm does not exist" 
+        nvm install 0.10.33
+        nvm alias default 0.10.33
+        # nvm use node
+    fi
+   else 
+    # create the dir if not existing
+    echo "file does not exist."
+    sudo mkdir /usr/local/opt/
+
+  fi
+SCRIPT
 
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -71,6 +128,10 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   # config.vm.provision "shell", inline: <<-SHELL
   #   apt-get update
-  #   apt-get install -y apache2
+  #   # apt-get install -y apache2
   # SHELL
+  # config.vm.provision :shell, path: "~/vagrant/nodejs.sh", privileged: false
+config.vm.provision "shell", inline: $rootScript
+config.vm.provision "shell", inline: $userScript, privileged: false
 end
+
