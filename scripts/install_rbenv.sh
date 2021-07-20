@@ -1,31 +1,53 @@
-   #!/bin/bash
+#!/bin/bash
+#https://github.com/rbenv/rbenv
+#installing Ruby version management tool 
+blue="\e[0;94m"
+reset="\e[0m"
 
-    #https://github.com/rbenv/rbenv
-    #installing Ruby version management tool 
-    
-    
-   
-    # echo 'eval "$(rbenv init - bash)"
-
-      #  sudo rm -rf /home/vagrant/.rbenv 
-       
-       sudo apt-get install rbenv
-
-      #  git clone https://github.com/sstephenson/rbenv.git  /home/vagrant/.rbenv 
-      #  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-      #  sudo PATH_BRC=$PATH bash -c "source ~/.bashrc"
-      #  echo $PATH_BRC
-      #  sudo PATH_R=$PATH bash -c 'eval "$(rbenv init -)"'
-      #  echo $PATH_R
-      # sudo eval "$(rbenv init - bash)"
+is_processed(){
+     sudo apt-get install rbenv
+      eval "$(rbenv init -)"
       echo 'eval "$(rbenv init -)"' >> ~/.bashrc
       echo "This is logged user: "$USER 
+
+       #https://github.com/rbenv/ruby-build
    
+   if command -v ruby-build && $USER != 'root';then
+    echo "ruby-build exists"
+   else
+    echo "ruby-build does not exists"
+
+    sudo git clone https://github.com/rbenv/ruby-build.git
+    sudo PREFIX=/usr/local ./ruby-build/install.sh
+   # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+   # sudo sh ~/.rbenv/plugins/ruby-build/install.sh
+  fi
     ## Get the most stable 
-    rbenv install -l | grep -v - | tail -1
-    # sudo VER=$PATH bash -c "rbenv install $(rbenv install -l | grep -v - | tail -1)"
-    # echo $VER
-     echo "This might take a bit. Please wait....."
+    
+if  test -d  /home/vagrant/.rbenv/versions/3.0.2;then
+    echo "rbenv exists"
+     rbenv install -l | grep -v - | tail -1
+
+    # echo  ~/.rbenv/bin/rbenv init
+    # curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
+    #check rbenv repl and ruby
+    echo "where is the repl:"
+    rbenv which irb
+    echo "List installed versions:"
+    rbenv versions
+    echo "where is the ruby and version dir:"
+    rbenv which ruby
+    # echo $PATH_BRC
+    curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
+   #source
+   . ~/.bashrc
+
+   else
+    echo "rbenv does not exists"
+     rbenv install -l | grep -v - | tail -1
+
+    echo "${blue}This might take a bit. Please wait.....${reset}"
+
      rbenv install 3.0.2
     # set  ruby locally
      rbenv local  3.0.2
@@ -39,26 +61,19 @@
     rbenv which irb
     echo "List installed versions:"
     rbenv versions
-    # echo "where is the ruby and version dir:"
-    # rbenv which ruby
+    echo "where is the ruby and version dir:"
+    rbenv which ruby
     # echo $PATH_BRC
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
+   #source
    . ~/.bashrc
 
-       #https://github.com/rbenv/ruby-build
-    if command -v ruby-build;then
-    echo "ruby-build exists"
-    else
-    sudo git clone https://github.com/rbenv/ruby-build.git
-    sudo PREFIX=/usr/local ./ruby-build/install.sh
-   # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-   # sudo sh ~/.rbenv/plugins/ruby-build/install.sh
-  fi
-
-
-
-
-   
+fi
+}
+is_root(){
+   [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
+}
+is_root && echo "You are logged in as root." || is_processed && echo "You are not logged in as root." 
 
 
 

@@ -109,13 +109,13 @@ $userScript = <<SCRIPT
         nvm alias default 0.10.33
         nvm use node
     fi
-    if command -v rbenv; then
-        echo "Ruby exists!"
-    else
-       echo "ruby does not exist so installing it now." 
-       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;  echo "Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
-       echo $PATH_RUBY
-    fi
+    # if command -v rbenv; then
+    #     echo "Ruby exists!"
+    # else
+    #    echo "ruby does not exist so installing it now." 
+    #    sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;  echo "Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
+    #    echo $PATH_RUBY
+    # fi
       if command -v pip; then
         echo "Python exists!"
       else
