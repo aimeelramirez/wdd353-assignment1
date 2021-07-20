@@ -109,19 +109,18 @@ $userScript = <<SCRIPT
         nvm alias default 0.10.33
         nvm use node
     fi
-    if command -v ruby-build; then
+    if command -v rbenv; then
         echo "Ruby exists!"
     else
        echo "ruby does not exist so installing it now." 
-       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;echo "CHECKPYRB=true" > scripts/check.sh &&  bash scripts/init_installs.sh && echo 'Running Ruby Manager installs.'"
+       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;  echo "Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
        echo $PATH_RUBY
-       ruby -v
     fi
       if command -v pip; then
         echo "Python exists!"
       else
        echo "python does not exist so installing it now." 
-       sudo PATH_PY=$PATH bash -c "cd /var/www/html; echo "CHECKPYRB=false" > scripts/check.sh &&  bash scripts/init_installs.sh && echo 'Running Python Manager installs.'"
+       sudo PATH_PY=$PATH bash -c "cd /var/www/html; bash scripts/install_pip.sh && echo 'Running Python Manager installs.'"
         echo $PATH_PY
       fi
        
