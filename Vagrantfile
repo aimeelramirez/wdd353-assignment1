@@ -64,13 +64,14 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   end
   $rootScript = <<SCRIPT
-   echo "I am provisioning..."
+     echo "${blue}I am provisioning..${reset}"
    echo Doing it as $USER
 SCRIPT
 
 ## This is the script that will install nvm as the default 'vagrant' user
 $userScript = <<SCRIPT
-
+  blue="\e[0;94m"
+  reset="\e[0m" 
   cd /home/vagrant
   # Installing nvm
   wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
@@ -78,11 +79,11 @@ $userScript = <<SCRIPT
   # make a copy to usr/local to read it without .
   FILE_OPT=/usr/local/opt
    run_install(){
-    echo "configuring nvm"
+      echo "${blue}configuring nvm"
     #delete if exists
     sudo rm -rf  /usr/local/opt/nvm
     echo $FILE_OPT
-    (cd $FILE_OPT; echo "I'm now in $PWD"  )
+    (cd $FILE_OPT;   echo "${blue}I'm now in $PWD"  )
     sudo PATH_NVM=$PATH bash -c "cp -r /home/vagrant/.nvm  /usr/local/opt/nvm "
     echo $PATH_NVM
     sudo PATH_NL=$PATH bash -c "cd /var/www/html; sudo bash scripts/nameserver.sh && echo 'Running nameserver'"
@@ -102,24 +103,24 @@ $userScript = <<SCRIPT
     echo $SOURCE_NVM
     # Install a node, ruby, python, and alias
      if command -v node; then
-        echo "Node exists!" 
+          echo "${blue}Node exists!${reset}" 
     else
-        echo "node does not exist so installing it now." 
+          echo "${blue}node does not exist so installing it now${reset}" 
         nvm install 0.10.33
         nvm alias default 0.10.33
         nvm use node
     fi
     # if command -v rbenv; then
-    #     echo "Ruby exists!"
+    #       echo "${blue}Ruby exists!${reset}"
     # else
-    #    echo "ruby does not exist so installing it now." 
-    #    sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;  echo "Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
+    #      echo "${blue}ruby does not exist so installing it now${reset}" 
+    #    sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;    echo "${blue}Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
     #    echo $PATH_RUBY
     # fi
       if command -v pip; then
-        echo "Python exists!"
+          echo "${blue}Python exists!${reset}"
       else
-       echo "python does not exist so installing it now." 
+         echo "${blue}python does not exist so installing it now${reset}" 
        sudo PATH_PY=$PATH bash -c "cd /var/www/html; bash scripts/install_pip.sh && echo 'Running Python Manager installs.'"
         echo $PATH_PY
       fi
@@ -129,7 +130,7 @@ $userScript = <<SCRIPT
     run_install
    else 
     # create the dir if not existing
-    echo "file does not exist."
+      echo "${blue}file does not exist${reset}"
     sudo mkdir /usr/local/opt/
     run_install
   fi
