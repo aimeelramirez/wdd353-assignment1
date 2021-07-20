@@ -70,13 +70,14 @@ SCRIPT
 
 ## This is the script that will install nvm as the default 'vagrant' user
 $userScript = <<SCRIPT
+
   cd /home/vagrant
   # Installing nvm
   wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
 
   # make a copy to usr/local to read it without .
   FILE_OPT=/usr/local/opt
- if test -d $FILE_OPT; then
+   run_install(){
     echo "configuring nvm"
     #delete if exists
     sudo rm -rf  /usr/local/opt/nvm
@@ -84,15 +85,11 @@ $userScript = <<SCRIPT
     (cd $FILE_OPT; echo "I'm now in $PWD"  )
     sudo PATH_NVM=$PATH bash -c "cp -r /home/vagrant/.nvm  /usr/local/opt/nvm "
     echo $PATH_NVM
-    # sudo PATH_V=$PATH bash -c "cd /usr/local/opt/nvm; ls "
-    # echo $PATH_V
-    sudo PATH_NL=$PATH bash -c "cd /var/www/html; sudo bash nameserver.sh && echo 'Running nameserver'"
+    sudo PATH_NL=$PATH bash -c "cd /var/www/html; sudo bash scripts/nameserver.sh && echo 'Running nameserver'"
     echo $PATH_NL
-    # pwd # still in first directory
+    # check
     sudo PATH=$PATH bash -c "which node npm pnpm"
     echo $PATH
-    #sudo mkdir /usr/local/opt/nvm
-    #sudo cd /home/vagrant
 
     #create the dir to point to local dir
     export NVM_DIR="/home/vagrant/.nvm"
@@ -104,19 +101,40 @@ $userScript = <<SCRIPT
     sudo SOURCE_NVM=$PATH bash -c "source /usr/local/opt/nvm/nvm.sh && echo 'configuring source'" 
     echo $SOURCE_NVM
     # Install a node and alias
-     if command -v nvm; then
-        echo "nvm exists" 
+     if command -v node; then
+        echo "Node exists!" 
     else
-        echo "nvm does not exist" 
+        echo "node does not exist" 
         nvm install 0.10.33
         nvm alias default 0.10.33
-        # nvm use node
+        nvm use node
     fi
+    if command -v ruby-build; then
+        echo "Ruby exists!"
+    else
+       echo "ruby does not exist" 
+       sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;echo "CHECKPYRB=true" > scripts/check.sh &&  sudo bash scripts/init_installs.sh && echo 'Running Ruby Manager installs.'"
+       echo $PATH_RUBY
+       ruby -v
+    fi
+      if command -v pip; then
+        echo "Python exists!"
+      else
+       echo "python does not exist" 
+       sudo PATH_PY=$PATH bash -c "cd /var/www/html; echo "CHECKPYRB=false" > scripts/check.sh &&  sudo bash scripts/init_installs.sh && echo 'Running Python Manager installs.'"
+        echo $PATH_PY
+        sudo PATH_RMPY=$PATH bash -c "sudo rm get-pip.py"
+        echo $PATH_RMPY
+      fi
+       
+    }
+ if test -d $FILE_OPT; then
+    run_install
    else 
     # create the dir if not existing
     echo "file does not exist."
     sudo mkdir /usr/local/opt/
-
+    run_install
   fi
 SCRIPT
 

@@ -17,6 +17,7 @@
     rbenv install -l | grep -v - | tail -1
     # sudo VER=$PATH bash -c "rbenv install $(rbenv install -l | grep -v - | tail -1)"
     # echo $VER
+     echo "This might take a bit. Please wait....."
      rbenv install 3.0.2
     # set  ruby locally
      rbenv local  3.0.2
@@ -30,8 +31,8 @@
     rbenv which irb
     echo "List installed versions:"
     rbenv versions
-    echo "where is the ruby and version dir:"
-    rbenv which ruby
+    # echo "where is the ruby and version dir:"
+    # rbenv which ruby
     # echo $PATH_BRC
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
     source ~/.bashrc

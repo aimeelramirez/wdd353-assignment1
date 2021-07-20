@@ -14,3 +14,7 @@ else
    sudo bash -c 'echo "nameserver 8.8.8.4" >> /etc/resolv.conf'
 fi
 
+
+
+
+ 

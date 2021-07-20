@@ -6,6 +6,14 @@
 - `vagrant provision`
 - `vagrant ssh`
 
+## Build dependencies
+
+-
+- Ruby Package Manager:
+  - `bash init_installs.sh`
+- Python Package Manager:
+  - `bash init_installs.sh`
+
 ## Assignment #1 (Grader)
 
 - Assignment link:
