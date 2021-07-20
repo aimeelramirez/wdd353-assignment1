@@ -1,5 +1,11 @@
 # WDD353
 
+## How to use machine
+
+- `vagrant up`
+- `vagrant provision`
+- `vagrant ssh`
+
 ## Assignment #1 (Grader)
 
 - Assignment link:
