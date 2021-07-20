@@ -10,9 +10,9 @@
 
 -
 - Ruby Package Manager:
-  - `bash init_installs.sh`
+  - `bash /scripts/install_rbenv.sh`
 - Python Package Manager:
-  - `bash init_installs.sh`
+  - `bash /scripts/install_pip.sh`
 
 ## Assignment #1 (Grader)
 
