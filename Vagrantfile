@@ -64,12 +64,15 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   end
   $rootScript = <<SCRIPT
-     echo "${blue}I am provisioning..${reset}"
+   blue="\e[0;94m"
+   reset="\e[0m"
+   echo "${blue}I am provisioning..${reset}"
    echo Doing it as $USER
 SCRIPT
 
 ## This is the script that will install nvm as the default 'vagrant' user
 $userScript = <<SCRIPT
+# # locally called
   blue="\e[0;94m"
   reset="\e[0m" 
   cd /home/vagrant
@@ -113,15 +116,15 @@ $userScript = <<SCRIPT
     # if command -v rbenv; then
     #       echo "${blue}Ruby exists!${reset}"
     # else
-    #      echo "${blue}ruby does not exist so installing it now${reset}" 
+    #     echo "${blue}ruby does not exist so installing it now${reset}" 
     #    sudo PATH_RUBY=$PATH bash -c "cd /var/www/html;    echo "${blue}Y" | bash scripts/install_rbenv.sh && echo 'Running Ruby Manager installs.'"
     #    echo $PATH_RUBY
     # fi
       if command -v pip; then
           echo "${blue}Python exists!${reset}"
       else
-         echo "${blue}python does not exist so installing it now${reset}" 
-       sudo PATH_PY=$PATH bash -c "cd /var/www/html; bash scripts/install_pip.sh && echo 'Running Python Manager installs.'"
+        echo "${blue}python does not exist so installing it now${reset}" 
+        sudo PATH_PY=$PATH bash -c "cd /var/www/html; bash scripts/install_pip.sh && echo 'Running Python Manager installs.'"
         echo $PATH_PY
       fi
        
