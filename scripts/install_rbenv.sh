@@ -36,6 +36,9 @@ if  test -d  /home/vagrant/.rbenv/versions/3.0.2;then
     rbenv versions
     echo "where is the ruby and version dir:"
     rbenv which ruby
+    #update ruby set
+    sudo rm /usr/bin/ruby
+    sudo ln -s "$(rbenv which ruby)" /usr/bin/ruby
     # echo $PATH_BRC
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
    #source
@@ -62,6 +65,9 @@ if  test -d  /home/vagrant/.rbenv/versions/3.0.2;then
     rbenv versions
     echo "where is the ruby and version dir:"
     rbenv which ruby
+    #update ruby set
+    sudo rm /usr/bin/ruby
+    sudo ln -s "$(rbenv which ruby)" /usr/bin/ruby
     # echo $PATH_BRC
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
    #source
