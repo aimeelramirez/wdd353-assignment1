@@ -82,7 +82,7 @@ $userScript = <<SCRIPT
   # make a copy to usr/local to read it without .
   FILE_OPT=/usr/local/opt
    run_install(){
-      echo "${blue}configuring nvm"
+    echo "${blue}configuring nvm"
     #delete if exists
     sudo rm -rf  /usr/local/opt/nvm
     echo $FILE_OPT
@@ -102,7 +102,7 @@ $userScript = <<SCRIPT
 
  
     # source where nvm
-    sudo SOURCE_NVM=$PATH bash -c "source /usr/local/opt/nvm/nvm.sh && echo 'configuring source'" 
+    sudo SOURCE_NVM=$PATH bash -c "source /usr/local/opt/nvm/nvm.sh && source ~/.bashrc && echo 'configuring source'" 
     echo $SOURCE_NVM
     # Install a node, ruby, python, and alias
      if command -v node; then
