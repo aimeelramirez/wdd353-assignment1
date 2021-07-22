@@ -58,3 +58,25 @@
 - Youtube link:
 
   - [Youtube](https://youtu.be/qSBzYzwldw0)
+
+## Assignment #3.1 (Validate)
+
+- Assignment link:
+
+  - [Assignment #2](wdd353-assignment3/)
+
+- Template link:
+
+  - [Simple Sidebar](https://startbootstrap.com/template/simple-sidebar)
+
+- Page links:
+
+  - [Dashboard file](wdd353-assignment3/views/dashboard.html)
+
+  - [Profile file](wdd353-assignment3/views/profile.html)
+
+  - [Overview file](wdd353-assignment3/views/overview.html)
+
+- Youtube link:
+
+  - [Youtube](https://youtu.be/qSBzYzwldw0)

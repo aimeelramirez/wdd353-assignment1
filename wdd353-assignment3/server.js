@@ -52,7 +52,13 @@ app.use(express.static(path.join(__dirname, 'public/js')));
 router.post("/404", (req, res) => {
     res.render('404.html', {
         title: '404',
-        errorMessage: 'Page not found.'
+        message: 'Page not found.'
+    })
+})
+router.get("/", (req, res) => {
+    res.render('index.html', {
+        title: 'HOME',
+        message: "Welcome! "
     })
 })
 app.use('/', router)
