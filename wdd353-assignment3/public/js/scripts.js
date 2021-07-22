@@ -50,22 +50,22 @@ window.addEventListener('DOMContentLoaded', event => {
         }
     }
     highlightNav()
-    const include = (file) => {
-        let script = document.createElement("script");
-        script.src = file;
-        script.type = "text/javascript";
-        script.defer = true;
-        //let script = "<script type='text/javascript' src='" + file +"'></script>";
-        let htmlEnd = document.querySelector("body");
-        htmlEnd.id = "sendScript";
-        //	htmlEnd.innerHTML += script;
-        getScript(script);
-    }
-    const getScript = (script) => {
-        let htmlScript = document.getElementById("sendScript");
-        htmlScript.insertAdjacentElement("beforeend", script);
-        //htmlScript.insertAdjacentHTML("beforeend", script);
-    };
-    //get files to read more than one
-    include("js/form.js");
+    // const include = (file) => {
+    //     let script = document.createElement("script");
+    //     script.src = file;
+    //     script.type = "text/javascript";
+    //     script.defer = true;
+    //     //let script = "<script type='text/javascript' src='" + file +"'></script>";
+    //     let htmlEnd = document.querySelector("body");
+    //     htmlEnd.id = "sendScript";
+    //     //	htmlEnd.innerHTML += script;
+    //     getScript(script);
+    // }
+    // const getScript = (script) => {
+    //     let htmlScript = document.getElementById("sendScript");
+    //     htmlScript.insertAdjacentElement("beforeend", script);
+    //     //htmlScript.insertAdjacentHTML("beforeend", script);
+    // };
+    // //get files to read more than one
+    // include("js/form.js");
 });

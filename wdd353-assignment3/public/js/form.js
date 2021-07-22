@@ -1,4 +1,5 @@
 "use strict";
+
 window.onload = () => {
     let boolMode = false;
 
@@ -18,7 +19,8 @@ window.onload = () => {
     let background = document.querySelector("html");
     let backgroundBody = document.querySelector("body");
 
-    let arrayImages = ["css/images/debutlight.png", "css/images/txture.png"];
+    let arrayImages = ["", ""];
+
 
     // let getDarkMode = (background.style.backgroundImage =
     //   `url("` + arrayImages[1] + `")`);
@@ -34,8 +36,8 @@ window.onload = () => {
     // ---- For testing purposes ---- //
     // name.value = "aimee";
     // email.value = "test@gmail.com";
-    // phone.value = "+1(123)123-1234";
-    // message.value = "required for messages longer than 10 characters.";
+    phone.value = "+1(123)123-1234";
+    message.value = "required for messages longer than 10 characters.";
     // ---- For testing purposes ---- //
     // Extra to replace icon on class error on getting success checkmark//
     const include = (file) => {
@@ -86,6 +88,21 @@ window.onload = () => {
     const submitForm = (e) => {
         // to stop it from loading
         e.preventDefault();
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/404',
+            data: {
+                firstName: 'aimee',
+                lastName: 'ramirez'
+            }
+        })
+            .then(function (res) {
+                console.log(res.data);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
         /* START form elements on key to store */
         let storeEl = form.elements;
         //console.log(storeEl);
