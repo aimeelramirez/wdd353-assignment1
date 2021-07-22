@@ -91,7 +91,7 @@ window.onload = () => {
 
         axios({
             method: 'post',
-            url: 'http://localhost:8080/404',
+            url: 'https://localhost:8080/404',
             data: {
                 firstName: 'aimee',
                 lastName: 'ramirez'
@@ -250,9 +250,9 @@ window.onload = () => {
                             //get images to background with transition
                             let x = 0;
                             //looks cleaner with form to be replaced than on body if to get a new screen
-                            let body = document.querySelector("form");
+                            let body = document.querySelector("#images");
                             body.style.cssText = "text-align:center";
-                            let message = `<p><h1> Thank You!<hr/>We will contact you shortly within 2-3 business days!</h1><hr/><i class="fas fa-arrow-circle-left"> Go Back</i><br/> <div>Thanks again!</div></p>`;
+                            let message = `<p><h2> Thank You!<hr/>We will contact you shortly within 2-3 business days!</h2><hr/><i class="fas fa-arrow-circle-left"> Go Back</i><br/> <div>Thanks again!</div></p>`;
                             body.innerHTML = message;
                             //get back button
                             let getBack = document.querySelector("i");

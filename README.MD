@@ -63,7 +63,7 @@
 
 - Assignment link:
 
-  - [Assignment #2](wdd353-assignment3/)
+  - [Assignment #3](wdd353-assignment3/)
 
 - Template link:
 

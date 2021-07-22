@@ -7,6 +7,7 @@ const https = require('https');
 const fs = require('fs')
 const options = require('./config')
 const express = require("express");
+let ejs = require('ejs');
 const path = require('path');
 const url = require('url');
 const router = new express.Router();
@@ -22,47 +23,96 @@ app.use(express.json())
 
 // // get the view pages of htmls
 const viewsPath = path.join(__dirname, './views');
+
 const publicPath = path.join(__dirname, './public');
+// const partialsPath = path.join(__dirname, './partials');
 
 app.set('view engine', 'ejs');
-app.engine('html', require('ejs').__express);
-
+app.engine('ejs', require('ejs').__express);
 
 //set views
-app.set('views', path.join(__dirname, 'views'));
 app.set('views', viewsPath);
-
-//get use views
-app.use(express.static(viewsPath));
-//get public path
-app.use(express.static(publicPath));
-//gets the styles to be dynamic
-app.use(express.static(path.join(__dirname, 'public/css')));
-//gets  the js to be dynamic
-app.use(express.static(path.join(__dirname, 'public/js')));
+// app.set('partials', partialsPath);
+app.engine('html', ejs.renderFile);
 
 
-// router.get("/", (req, res) => {
-//     res.render('/', {
+// app.get('/', function (req, res) {
+//     res.render('index.html', {
+//         title: 'HOME',
+//     });
+// });
+
+// index page
+
+
+// // about page
+// app.get('/404', function (req, res) {
+//     res.render('/404');
+// });
+// app.route("*").get(function (req, res) {
+//     res.render('*.html', {
 //         title: '404',
-//         errorMessage: 'Page not found.'
+//         message: 'Page not found.'
 //     })
-//     res.write("404")
 // })
+router.get("/dashboard", (req, res) => {
+    console.log('Sub Pages');
+    res.render('dashboard.html', {
+        title: 'DASHBOARD',
+        message: 'Page not found.'
+    })
+})
+router.get("/profile", (req, res) => {
+    console.log('Sub Pages');
+    res.render('profile.html', {
+        title: 'PROFILE',
+        message: 'Page not found.'
+    })
+})
+router.get("/overview", (req, res) => {
+    console.log('Sub Pages');
+    res.render('overview.html', {
+        title: 'OVERVIEW',
+        message: 'Page not found.'
+    })
+})
+
 router.post("/404", (req, res) => {
     res.render('404.html', {
         title: '404',
         message: 'Page not found.'
     })
 })
+router.get("/index", (req, res) => {
+    res.render('index.html', {
+        title: 'HOME',
+        message: "Welcome!"
+    })
+})
 router.get("/", (req, res) => {
     res.render('index.html', {
         title: 'HOME',
-        message: "Welcome! "
+        message: "Welcome!"
     })
 })
-app.use('/', router)
+// //get public path
+app.use(express.static(publicPath));
+// //gets the styles to be dynamic
+app.use(express.static(path.join(__dirname, 'public/css')));
+// //gets  the js to be dynamic
+app.use(express.static(path.join(__dirname, 'public/js')));
 
-app.listen(port, () => {
-    console.log(`server is listening at post ${port}.`)
+app.use('/', router)
+app.get('/*', (req, res) => {
+    res.render('404.html', {
+        title: '404',
+        message: 'Page not found.'
+    })
 })
+//ssl
+https
+    .createServer(options, app, (req, res) => {
+        // app.listen(port, () => {
+        console.log(`server is listening at post ${port}.`)
+        // })
+    }).listen(port);

@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Simple Sidebar - Start Bootstrap Template</title>
     <!-- Base -->
-    <base href="http://localhost:8080">
+    <base href="https://localhost:8080">
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -20,19 +20,19 @@
 
 
 <body>
+
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="/dashboard.html">Dashboard</a>
+                    href="/dashboard">Dashboard</a>
                 <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a> -->
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="/overview.html">Overview</a>
+                    href="/overview">Overview</a>
                 <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a> -->
-                <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="/profile.html">Profile</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/profile">Profile</a>
                 <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a> -->
             </div>
         </div>
@@ -41,6 +41,7 @@
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
+
                     <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -48,7 +49,7 @@
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="/index.html">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
@@ -66,23 +67,28 @@
             </nav>
             <!-- Page content-->
             <div class="container-fluid">
+
                 <h1 class="mt-4">Dashboard</h1>
-                <ul id="list-users"></ul>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, molestiae animi! Fuga, ad ut?
-                    Voluptatem voluptates nobis neque ratione dignissimos tempora velit harum corrupti, adipisci amet
-                    quasi unde, accusamus ex?
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. In saepe aut vitae assumenda sed
-                    dignissimos consequuntur consequatur optio nihil voluptates porro quod dolorum, veniam repellat illo
-                    quas distinctio laboriosam ex.
-                </p>
-                <ul id="list-users"></ul>
+                <%- include('partials/nav'); -%>
+                    <ul id="list-users"></ul>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, molestiae animi! Fuga, ad ut?
+                        Voluptatem voluptates nobis neque ratione dignissimos tempora velit harum corrupti, adipisci
+                        amet
+                        quasi unde, accusamus ex?
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. In saepe aut vitae assumenda sed
+                        dignissimos consequuntur consequatur optio nihil voluptates porro quod dolorum, veniam
+                        repellat
+                        illo
+                        quas distinctio laboriosam ex.
+                    </p>
+                    <ul id="list-users"></ul>
             </div>
         </div>
     </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <!-- <script defer src="js/scripts.js"></script> -->
+    <script defer src="js/scripts.js"></script>
 </body>
 
 </html>
