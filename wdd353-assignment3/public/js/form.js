@@ -32,13 +32,27 @@ window.onload = () => {
         event.preventDefault()
         console.log(store)
         localStorage.setItem('data', JSON.stringify(store))
+        let dataArray = [
+            firstname.value,
+            lastname.value,
+
+            email.value,
+
+            city.value,
+            zip.value,
+
+            age.value,
+            subscribeNews.value,
+            phone.value,
+            message.value
+        ]
         fetch('https://localhost:8080/data', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
-            body: JSON.stringify({ "data": store })
+            body: JSON.stringify(dataArray)
 
         }).then(response => {
             console.log(response.status)
@@ -46,6 +60,7 @@ window.onload = () => {
         }).catch((error) => {
             console.error('Error:', error);
         });
+
     }
 
     /* START submitForm */
@@ -214,15 +229,15 @@ window.onload = () => {
 
             let data = {
 
-                name: {
-                    firstname: firstname.value,
-                    lastname: lastname.value
-                },
+
+                firstname: firstname.value,
+                lastname: lastname.value,
+
                 email: email.value,
-                address: {
-                    city: city.value,
-                    zip: zip.value
-                },
+
+                city: city.value,
+                zip: zip.value,
+
                 age: age.value,
                 subscribeNews: subscribeNews.value,
                 phone: phone.value,
@@ -232,11 +247,29 @@ window.onload = () => {
 
             store.push(data)
             console.log(store)
-            successBanner(event, store)
+            successBanner(event)
         }
     }
     submitButton.addEventListener("click", (e) => {
         e.preventDefault()
         submitForm(e)
     }, false);
+    fetch('https://localhost:8080/js/data.txt')
+        .then(response => response.json())
+        .then(data => {
+            let dataRead = []
+            for (const [key, value] of Object.entries(data)) {
+                // console.log(key);
+                // let getNewDiv = document.createElement('li')
+                // let splitList = key.split().join()
+                dataRead.push(key)
+                console.log(dataRead.length)
+                document.getElementById('notify').innerHTML += `<li>` + dataRead + '</li>'
+            }
+
+
+
+        })
+
+
 };

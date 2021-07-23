@@ -2,7 +2,6 @@
 
 "use strict"
 
-const axios = require('axios');
 const https = require('https');
 const fs = require('fs')
 const options = require('./config')
@@ -11,7 +10,10 @@ let ejs = require('ejs');
 const path = require('path');
 const url = require('url');
 const router = new express.Router();
+const api = require('./public/js/api')
+
 //get api
+
 const app = express();
 
 //set port
@@ -36,32 +38,33 @@ app.set('views', viewsPath);
 app.engine('html', ejs.renderFile);
 
 
-// app.get('/', function (req, res) {
-//     res.render('index.html', {
-//         title: 'HOME',
-//     });
-// });
-
-// index page
-
-
-// // about page
-// app.get('/404', function (req, res) {
-//     res.render('/404');
-// });
 router.get("/data", function (req, res) {
-    res.render('404.html', {
-        title: 'DATA',
-        message: "take a look at the console."
-    })
+    console.log(req.body)
+    // res.render('404.html', {
+    //     title: 'DATA',
+    //     message: "take a look at the console."
+    // })
     // res.end();
+
 })
+
+
 router.post("/data", function (req, res) {
     console.log(req.body)
     res.render('404.html', {
         title: 'DATA',
         message: JSON.stringify(req.body)
     })
+    let data = JSON.stringify(req.body).toString()
+    fs.writeFile("public/js/data.txt", data, (err) => {
+        if (err)
+            console.log(err);
+        else {
+            console.log("File written successfully\n");
+            console.log("The written has the following contents:");
+            console.log(fs.readFileSync("public/js/data.txt", "utf8"));
+        }
+    });
 })
 router.get("/dashboard", (req, res) => {
     console.log('Sub Pages');
@@ -119,7 +122,7 @@ app.get('/*', (req, res) => {
 })
 //ssl
 https
-    .createServer(options, app, (req, res) => {
+    .createServer(options, app, api, (req, res) => {
         // app.listen(port, () => {
         console.log(`server is listening at post ${port}.`)
         // })
