@@ -2,29 +2,7 @@
 
 window.onload = () => {
     console.log("form")
-    let boolMode = false;
-
-    /* All Insructions are in "**" */
-    /** 
-  "Change the first paragraph to match your theme. 
-    Replace the <p> tag's content without adding a 
-    CLASS or ID to the tag itself.
-    No Lorem Ipsum, use real content!""
-  //i didn't add a class or id but i did add a button on adding a script for fontawesome on success */
-
-    //** Change the first paragraph to match your theme. Replace the <p> tag's content without adding a CLASS or ID to the tag itself. No Lorem Ipsum, use real content!
-    let banner = document.querySelector("#notify");
-    // banner.innerHTML = "Get in touch:";
-
     /* QUERIES */
-    let background = document.querySelector("html");
-    let backgroundBody = document.querySelector("body");
-
-    let arrayImages = ["", ""];
-
-
-    // let getDarkMode = (background.style.backgroundImage =
-    //   `url("` + arrayImages[1] + `")`);
 
     /* START ids on input and textarea */
     let firstname = document.getElementById("firstname");
@@ -42,70 +20,14 @@ window.onload = () => {
     // ---- For testing purposes ---- //
     firstname.value = "aimee";
     lastname.value = "dev";
-
     email.value = "test@gmail.com";
     phone.value = "+1(123)123-1234";
     message.value = "required for messages longer than 10 characters.";
-    // ---- For testing purposes ---- //
-    // Extra to replace icon on class error on getting success checkmark//
-    const include = (file) => {
-        let script = document.createElement("script");
-        script.src = file;
-        //script.crossorigin = "anonymous";
-        script.defer = true;
-        getScript(script);
-    };
-    const getScript = (script) => {
-        let htmlScript = document.querySelector("body");
-        htmlScript.insertAdjacentElement("beforeend", script);
-    };
-    include("https://kit.fontawesome.com/68ebcc4019.js");
-    // Extra to replace icon on class error on getting success checkmark//
 
-    /* START creating dark mode or light mode */
-    let createButtonSwitch = document.createElement("a");
-    background.insertAdjacentElement("beforeend", createButtonSwitch);
-    //center buttons and text
-    background.style.cssText = "text-align:center";
-    //on html to match body
-    backgroundBody.style.backgroundImage = `url("` + arrayImages[0] + `")`;
-    backgroundBody.style.transition = "2s";
-    //on html to match body
-    background.style.backgroundImage = `url("` + arrayImages[0] + `")`;
-    background.style.transition = "2s";
-
-    createButtonSwitch.innerHTML += `<i class="fas fa-moon"> </i><p>Switch to Dark Mode</p>`;
-    createButtonSwitch.style.cssText =
-        "cursor:pointer; font-size:1.5rem; color:black;";
-
-    /* END Change the background Image  dark : light*/
-
-    // let form = document.querySelector("form");
-    //let paragraphs = form.querySelectorAll("p");
-    let form1 = document.querySelector("form");
     let submitButton = document.querySelector("button[type='submit']");
+    //get the button disabled before submit
 
-    let inputValidate = document.querySelectorAll("input");
-
-    let formValidate = form1.querySelectorAll("textarea");
-    let formRadio = form1.querySelectorAll("input[type='radio']");    //get the button disabled before submit
-    //submitButton.setAttribute("class", "disabled");
-    //submitButton.disabled = true;
     let store = [];
-    //submitButton.setAttribute("disabled", true);
-    // let getAllIds = document.querySelector('form')
-    // for (let i in getAllIds.elements) {
-    //     let checknum = parseInt(i)
-    //     if (checknum >= 0) {
-    //         console.log(i + ")" + getAllIds[i].id)
-    //         let id = getAllIds[i].id
-    //         let value = getAllIds[i].value
-
-    //     }
-
-    //     store.push(data)
-    // }
-    // console.log(store)
     const successBanner = (event, store) => {
         event.preventDefault()
         console.log(store)
@@ -124,103 +46,12 @@ window.onload = () => {
         }).catch((error) => {
             console.error('Error:', error);
         });
-
-
-        /* START thank you screen not banner */
-        // let newScreen = () => {
-        //     setTimeout(() => {
-        //         /* START Change the background Image */
-        //         let arrayImages = [
-        //             {
-        //                 imageSrc: "images/lighthouse.jpg",
-        //                 alt: "lighthouse over the bay during daytime.",
-        //             },
-        //             {
-        //                 imageSrc: "images/trail.jpg",
-        //                 alt:
-        //                     "a trail by a lake during autumn season in hilly pastures.",
-        //             },
-        //             {
-        //                 imageSrc: "images/trees.jpg",
-        //                 alt: "bunch of tall bald trees in an open field.",
-        //             },
-        //             {
-        //                 imageSrc: "images/waterfall.jpg",
-        //                 alt: "waterfalls by green pastures.",
-        //             },
-        //             {
-        //                 imageSrc: "images/winter.jpg",
-        //                 alt: "snow covered mountains in the winter.",
-        //             },
-        //         ];
-
-        //         //get images to background with transition
-        //         let x = 0;
-        //         //looks cleaner with form to be replaced than on body if to get a new screen
-        //         let body = document.querySelector("#images");
-        //         body.style.cssText = "text-align:center";
-        //         let message = `<p><h2> Thank You!<hr/>We will contact you shortly within 2-3 business days!</h2><hr/><i class="fas fa-arrow-circle-left"> Go Back</i><br/> <div>Thanks again!</div></p>`;
-        //         body.innerHTML = message;
-        //         //get back button
-        //         let getBack = document.querySelector("i");
-        //         getBack.style.cssText =
-        //             "color:black; cursor:pointer; font-size:1.5rem;";
-        //         /* EVENTS last screen*/
-        //         getBack.addEventListener("click", () => {
-        //             console.log("click");
-        //             location.reload();
-        //         });
-        //         /* EVENTS last screen*/
-
-        //         //get first image to set to get
-        //         let getImgTransition = document.querySelector("div");
-        //         getImgTransition.innerHTML = ` <img id="images"><br/> Cheers!`;
-
-        //         let getImage = () => {
-        //             //get a new screen
-        //             let getImg = document.getElementById("images");
-        //             getImg.src = arrayImages[x].imageSrc;
-        //             getImg.alt = arrayImages[x].alt;
-        //             x++;
-        //             //fixing to make it readable
-        //             if (x >= arrayImages.length) {
-        //                 x = 0;
-        //             }
-        //         };
-        //         //start the loop
-        //         let startImageLoop = () => {
-        //             setInterval(() => {
-        //                 getImage();
-        //             }, 2000);
-        //         };
-        //         startImageLoop();
-        //     }, 3000);
-        // };
-        // newScreen();
-        // /* END thank you screen not banner */
     }
 
     /* START submitForm */
     const submitForm = (event) => {
         // to stop it from loading
         event.preventDefault();
-
-        /* START form elements on key to store */
-        // let storeEl = form.elements;
-        //console.log(storeEl);
-
-        //push the items into the store[]
-        // for (let key in storeEl) {
-        //     store.push({
-        //         id: key,
-        //         item: storeEl[key].value,
-        //     });
-        //     // console.log("check: ", store);
-        // }
-
-        /* END form elements on key to store */
-
-
 
         // ** Create validation errors for every single input.
         let boolPhone = false;
@@ -271,14 +102,14 @@ window.onload = () => {
             }
         };
         let validateStringNum = (el) => {
-            let checkNaN = isNaN(el);
-            if (!checkNaN) {
+            let check = parseFloat(el.value)
+            // console.log(check)
+            let checkNaN = isNaN(check);
+            if (checkNaN) {
                 addElement(notify, el)
             } else {
-
                 if (el.value === zip.value) {
-                    console.log(boolZip + ":" + el.value);
-
+                    // console.log(boolZip + ":" + el.value);
                     return boolZip = true;
                 }
 
@@ -303,14 +134,6 @@ window.onload = () => {
             newDiv.className = "alert-warning"
             newDiv.innerHTML = notify
             type.focus();
-
-            // and give it some content
-            // const newContent = document.createTextNode(notify);
-
-            // // add the text node to the newly created div
-            // newDiv.appendChild(newContent);
-
-            // add the newly created element and its content into the DOM
             const currentDiv = document.getElementById(type.id);
             currentDiv.insertAdjacentElement('beforebegin', newDiv);
         }
@@ -408,102 +231,12 @@ window.onload = () => {
             }
 
             store.push(data)
-
             console.log(store)
             successBanner(event, store)
         }
-
-
-
     }
-
-
-    // console.log(store)
-    // on all forms validated = success banner
-
-
-    let getSwitch = () => {
-        //get light image on light mode
-        let lightImage = () => {
-            boolMode = false;
-            backgroundBody.style.backgroundImage = `url("` + arrayImages[0] + `")`;
-            backgroundBody.style.transition = "2s";
-            background.style.backgroundImage = `url("` + arrayImages[0] + `")`;
-            background.style.transition = "2s";
-
-            createButtonSwitch.innerHTML = `<i class="fas fa-moon"></i><p>Switch to Dark Mode</p>`;
-            createButtonSwitch.style.backgroundImage =
-                `url("` + arrayImages[0] + `")`;
-            createButtonSwitch.style.cssText =
-                "cursor:pointer; font-size:1.5rem; color:black;";
-        };
-
-        //get dark image on dark mode
-        let darkImage = () => {
-            boolMode = true;
-            backgroundBody.style.backgroundImage = `url("` + arrayImages[1] + `")`;
-            backgroundBody.style.transition = "2s";
-            background.style.backgroundImage = `url("` + arrayImages[1] + `")`;
-            background.style.transition = "2s";
-
-            createButtonSwitch.innerHTML = `<i class="fas fa-sun"></i><p>Switch to Light Mode</p>`;
-            createButtonSwitch.style.cssText =
-                "color:white; cursor:pointer; font-size:1.5rem;";
-            createButtonSwitch.style.transition = "2s";
-        };
-        if (boolMode == false) {
-            //console.log(boolMode);
-            darkImage();
-            //alert("click on browser on dark mode not on mobile");
-        } else {
-            // console.log(boolMode);
-            lightImage();
-            //alert("click on browser on light mode not on mobile");
-        }
-    };
     submitButton.addEventListener("click", (e) => {
         e.preventDefault()
         submitForm(e)
     }, false);
-    /* END submitForm */
-    setInterval(() => {
-
-        for (let i = 0; i < inputValidate.length; i++) {
-            // if (inputValidate[i].value != "" ) {
-            // let args = [...inputValidate];
-            // console.log(args[i].value);
-            //hardcoded...
-            if (
-                inputValidate[0].value != "" &&
-                inputValidate[1].value != "" &&
-                inputValidate[2].value != "" &&
-                formValidate[0].value != ""
-            ) {
-                //submitButton.removeAttribute("class", "disabled");
-                // submitButton.removeAttribute("disabled", true);
-
-                //boolButton = true;
-                //submitButton.disabled = false;
-                /* EVENTS on submit button */
-
-            } else {
-                submitButton.setAttribute("class", "disabled");
-
-                /* EVENTS on submit button */
-                // addEventListener("submit", submitForm);
-                // e.preventDefault();
-            }
-        }
-        //}
-    }, 1000);
-    /* EVENTS first screen*/
-    //addEventListener("submit", submitForm);
-
-    createButtonSwitch.addEventListener("click", (e) => {
-        e.preventDefault()
-        getSwitch()
-    });
-
-    /* EVENTS first screen*/
-
 };
