@@ -82,8 +82,10 @@
 
             </div>
             <section id="images"></section>
+            <article id="notify"></article>
+
             <div>
-                <form method="post" action="https://localhost:8080/404">
+                <form method="post">
 
                     <h2><strong>Contact</strong> Us</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ex nunc, pretium sed
@@ -122,14 +124,16 @@
                         </select>
                     </p>
                     <p>
-                    <div class="choices">
-                        <input type="radio" id="contactChoice1" name="contact" value="she/her">
+                    <div class="form-control choices">
+                        <input class="form-check-input" type="radio" id="contactChoice1" name="contact" value="she/her"
+                            checked>
                         <label for="contactChoice1">she/her</label>
 
-                        <input type="radio" id="contactChoice2" name="contact" value="he/him">
+                        <input class="form-check-input" type="radio" id="contactChoice2" name="contact" value="he/him">
                         <label for="contactChoice2">he/him</label>
 
-                        <input type="radio" id="contactChoice3" name="contact" value="them/they">
+                        <input class="form-check-input" type="radio" id="contactChoice3" name="contact"
+                            value="them/they">
                         <label for="contactChoice3">them/they</label>
                     </div>
 
@@ -153,7 +157,7 @@
                     </p>
 
                     <p>
-                        <button type="submit">Submit</button>
+                        <button id="submit" type="submit">Submit</button>
                     </p>
                 </form>
             </div>

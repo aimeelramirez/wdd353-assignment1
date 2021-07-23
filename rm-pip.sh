@@ -1,9 +1,13 @@
 #!/bin/bash
-RMPY=`rm get-pip.py`
+RMPY=get-pip.py
 
-if test -f get-pip.py;then 
-echo 'file exists.' 
-echo $RMPY
+
+cleanpy(){
+if test -e $RMPY;then 
+echo 'File get-pip.py exists.' 
+echo rm $RMPY
 else 
-echo 'file does not exist.' 
+echo 'File get-pip.py does not exist.' 
 fi
+} 
+cleanpy

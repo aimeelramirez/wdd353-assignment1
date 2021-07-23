@@ -107,10 +107,11 @@ $userScript = <<SCRIPT
     # Install a node, ruby, python, and alias
      if command -v node; then
           echo "${blue}Node exists!${reset}" 
+          nvm use node
+
     else
-          echo "${blue}node does not exist so installing it now${reset}" 
-        nvm install 0.10.33
-        nvm alias default 0.10.33
+        echo "${blue}node does not exist so installing it now${reset}" 
+        nvm install node
         nvm use node
     fi
     # if command -v rbenv; then

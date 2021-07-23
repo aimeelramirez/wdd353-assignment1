@@ -49,12 +49,20 @@ app.engine('html', ejs.renderFile);
 // app.get('/404', function (req, res) {
 //     res.render('/404');
 // });
-// app.route("*").get(function (req, res) {
-//     res.render('*.html', {
-//         title: '404',
-//         message: 'Page not found.'
-//     })
-// })
+router.get("/data", function (req, res) {
+    res.render('404.html', {
+        title: 'DATA',
+        message: "take a look at the console."
+    })
+    // res.end();
+})
+router.post("/data", function (req, res) {
+    console.log(req.body)
+    res.render('404.html', {
+        title: 'DATA',
+        message: JSON.stringify(req.body)
+    })
+})
 router.get("/dashboard", (req, res) => {
     console.log('Sub Pages');
     res.render('dashboard.html', {
