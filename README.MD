@@ -2,10 +2,16 @@
 
 ## How to run project
 
+- `npm run machine`
 - `vagrant up`
 - `vagrant provision`
   - <code> vagrant provision</code> should build nvm, node, and python dependencies before ssh for development.
 - `vagrant ssh`
+
+## How to run exit
+
+- In VM: `exit`
+- Clean: `npm run exit`
 
 ### In Vagrant box
 
