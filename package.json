@@ -1,0 +1,25 @@
+{
+  "name": "wdd353",
+  "version": "1.0.0",
+  "description": "assignment #3 validate",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "test \"$(node -v)\" != \"$(cat .nvmrc)\" && { unset npm_package_scripts_preinstall npm_config_prefix npm_lifecycle_script && . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) --reinstall-packages-from=current --skip-default-packages && nvm use node; } || echo",
+    "serve": "nodemon webServer.js",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "request": "^2.88.2",
+    "startbootstrap-simple-sidebar": "^6.0.2"
+  },
+  "author": "aimee ramirez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
