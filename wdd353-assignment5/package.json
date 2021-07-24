@@ -1,7 +1,7 @@
 {
-  "name": "wdd353",
+  "name": "wdd353-assignment5",
   "version": "1.0.0",
-  "description": "Assignment #3 Validate",
+  "description": "Assignment #5 Login",
   "main": "index.js",
   "scripts": {
     "preinstall": "test \"$(node -v)\" != \"$(cat .nvmrc)\" && { unset npm_package_scripts_preinstall npm_config_prefix npm_lifecycle_script && . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) --reinstall-packages-from=current --skip-default-packages && nvm use node; } || echo",

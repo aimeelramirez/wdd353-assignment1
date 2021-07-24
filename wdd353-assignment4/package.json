@@ -1,7 +1,7 @@
 {
   "name": "wdd353",
   "version": "1.0.0",
-  "description": "assignment #3 validate",
+  "description": "Assignment #4 Sync/Async",
   "main": "index.js",
   "scripts": {
     "preinstall": "test \"$(node -v)\" != \"$(cat .nvmrc)\" && { unset npm_package_scripts_preinstall npm_config_prefix npm_lifecycle_script && . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) --reinstall-packages-from=current --skip-default-packages && nvm use node; } || echo",
