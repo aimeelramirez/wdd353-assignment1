@@ -65,7 +65,7 @@
 
   - [Youtube](https://youtu.be/qSBzYzwldw0)
 
-## Assignment #3.1 (Validate)
+## Assignment #3 (Validate)
 
 - Assignment link:
 
@@ -86,3 +86,29 @@
 - Youtube link:
 
   - [Youtube](https://youtu.be/qSBzYzwldw0)
+
+## Assignment #4 (Sync/Async)
+
+- Assignment link:
+
+  - [Assignment #3](wdd353-assignment3/)
+
+- Template link:
+
+  - [Simple Sidebar](https://startbootstrap.com/template/simple-sidebar)
+
+- Page links:
+
+  - [Dashboard file](wdd353-assignment3/views/dashboard.html)
+
+  - [Profile file](wdd353-assignment3/views/profile.html)
+
+  - [Overview file](wdd353-assignment3/views/overview.html)
+
+- JS links:
+
+  - [JS folder](wdd353-assignment3/public/js)
+
+- Youtube link:
+
+  - [Youtube](https://youtu.be/en9lDL2GhZ0)
