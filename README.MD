@@ -85,13 +85,13 @@
 
 - Youtube link:
 
-  - [Youtube](https://youtu.be/qSBzYzwldw0)
+  - [Youtube](https://youtu.be/GC5zj4qe558)
 
 ## Assignment #4 (Sync/Async)
 
 - Assignment link:
 
-  - [Assignment #3](wdd353-assignment3/)
+  - [Assignment #3](wdd353-assignment4/)
 
 - Template link:
 
