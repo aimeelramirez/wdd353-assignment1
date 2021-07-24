@@ -40,11 +40,11 @@ app.engine('html', ejs.renderFile);
 
 router.get("/data", function (req, res) {
     console.log(req.body)
-    // res.render('404.html', {
-    //     title: 'DATA',
-    //     message: "take a look at the console."
-    // })
-    // res.end();
+    res.render('404.html', {
+        title: 'DATA',
+        message: "take a look at the console."
+    })
+    res.end();
 
 })
 
