@@ -35,12 +35,9 @@ window.onload = () => {
         let dataArray = [
             firstname.value,
             lastname.value,
-
             email.value,
-
             city.value,
             zip.value,
-
             age.value,
             subscribeNews.value,
             phone.value,
@@ -156,7 +153,10 @@ window.onload = () => {
 
         let validateString = () => {
             if (document.getElementById('notify') !== null) {
-                document.getElementById('notify').remove()
+                let getClass = document.querySelectorAll('.alert-warning');
+                for (let i = 0; i < getClass.length; i++) {
+                    getClass[i].remove()
+                }
 
             }
             // console.log(`Sorry input can not be empty`);
@@ -228,16 +228,11 @@ window.onload = () => {
             console.log(boolFirstname)
 
             let data = {
-
-
                 firstname: firstname.value,
                 lastname: lastname.value,
-
                 email: email.value,
-
                 city: city.value,
                 zip: zip.value,
-
                 age: age.value,
                 subscribeNews: subscribeNews.value,
                 phone: phone.value,

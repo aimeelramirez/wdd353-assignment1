@@ -30,10 +30,14 @@ returnTrue();
 //nine
 let str = "";
 
-//one
-function myname() {
-    //eight
-    return "Here is my IP address"
+// //one
+// function myname() {
+//     //eight
+//     return "Here is my IP address"
+// }
+//eight
+let nameThis = async () => {
+    console.log("Here is my IP address")
 }
 //two
 async function callHttpbin() {
@@ -48,18 +52,20 @@ async function callHttpbin() {
                 });
                 response.on('end', function () {
                     var result = JSON.parse(str);
-                    myips = result.origin;
-                    //three
-                    //  console.log(Promise.resolve(myips))
-                    return resolve(myips)
-                });
-                //two
-                response.error('error', function (err) {
-                    return reject(err)
-                });
+                    if (result) {
+                        //three
+                        myips = result.origin;
+                        //  console.log(Promise.resolve(myips))
+                        return resolve(myips)
+                    } else {
+                        //two
+                        reject(new Error('not found'));
+                    }
+
+                })
             }
         )
-    });
+    })
 
     let result = await promise
     //four
@@ -67,7 +73,7 @@ async function callHttpbin() {
 }
 // five
 async function executeAsyncTask() {
-    const valueB = myname();
+    const valueB = nameThis();
     const valueA = await callHttpbin()
     let message = (valueB + ': ' + valueA)
     console.log(message)
