@@ -11,7 +11,12 @@ const path = require('path');
 const url = require('url');
 const router = new express.Router();
 const api = require('./public/js/api')
-
+const controller = require("./public/js/auth/controller")
+// Nodejs encryption with CTR
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
 //get api
 
 const app = express();
@@ -20,8 +25,9 @@ const app = express();
 const port = 8080
 app.set("port", port);
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+
+
+console.log(process.cwd())
 
 // // get the view pages of htmls
 const viewsPath = path.join(__dirname, './views');
@@ -29,17 +35,49 @@ const viewsPath = path.join(__dirname, './views');
 const publicPath = path.join(__dirname, './public');
 // const partialsPath = path.join(__dirname, './partials');
 
-app.set('view engine', 'ejs');
-app.engine('ejs', require('ejs').__express);
-
 //set views
 app.set('views', viewsPath);
 // app.set('partials', partialsPath);
-app.engine('html', ejs.renderFile);
+app.set('ejs', ejs.renderFile);
 
 
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express);
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+/*  Encrypt  */
+
+function encrypt(text) {
+    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+}
+
+function decrypt(text) {
+    let iv = Buffer.from(text.iv, 'hex');
+    let encryptedText = Buffer.from(text.encryptedData, 'hex');
+    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+}
+
+var hw = encrypt("Some serious stuff")
+console.log(hw)
+console.log(decrypt(hw))
+
+router.get("/dashboard", function (req, res) {
+    // console.log(req.body)
+    res.render('dashboard.html', {
+        title: 'DASHBOARD',
+        message: "take a look at the console."
+    })
+    res.end();
+
+})
 router.get("/data", function (req, res) {
-    console.log(req.body)
+    console.log(JSON.stringify(req.body))
     res.render('404.html', {
         title: 'DATA',
         message: "take a look at the console."
@@ -48,9 +86,9 @@ router.get("/data", function (req, res) {
 
 })
 
-
 router.post("/data", function (req, res) {
     console.log(req.body)
+
     res.render('404.html', {
         title: 'DATA',
         message: JSON.stringify(req.body)
@@ -66,12 +104,28 @@ router.post("/data", function (req, res) {
         }
     });
 })
-router.get("/dashboard", (req, res) => {
-    console.log('Sub Pages');
-    res.render('dashboard.html', {
-        title: 'DASHBOARD',
-        message: 'Page not found.'
-    })
+// router.get("/auth", (req, res) => {
+//     // // res.header("Access-Control-Allow-Origin", "*") // update to match the domain you will make the request from
+//     // // res.header(
+//     // //     "Access-Control-Allow-Origin",
+//     // //     "Access-Control-Allow-Headers",
+//     // //     "x-access-token, Origin, X-Requested-With, Content-Type, Accept",
+//     // // )
+
+//     // // res.setHeader("Content-Type", "text/html");
+//     // console.log(JSON.stringify(req.body))
+//     // res.render('dashboard.html', {
+//     //     title: 'DASHBOARD',
+//     //     message: "take a look at the console."
+//     // })
+
+// })
+
+router.post("/auth", (req, res) => {
+
+    controller.signup(req, res)
+    res.end();
+
 })
 router.get("/profile", (req, res) => {
     console.log('Sub Pages');
@@ -94,18 +148,18 @@ router.post("/404", (req, res) => {
         message: 'Page not found.'
     })
 })
-router.get("/index", (req, res) => {
-    res.render('index.html', {
-        title: 'HOME',
-        message: "Welcome!"
-    })
-})
-router.get("/", (req, res) => {
-    res.render('index.html', {
-        title: 'HOME',
-        message: "Welcome!"
-    })
-})
+// router.get("/index", (req, res) => {
+//     res.render('index', {
+//         title: 'HOME',
+//         message: "Welcome!"
+//     })
+// })
+// router.get("/", (req, res) => {
+//     res.render('index', {
+//         title: 'HOME',
+//         message: "Welcome!"
+//     })
+// })
 // //get public path
 app.use(express.static(publicPath));
 // //gets the styles to be dynamic
@@ -114,6 +168,9 @@ app.use(express.static(path.join(__dirname, 'public/css')));
 app.use(express.static(path.join(__dirname, 'public/js')));
 
 app.use('/', router)
+app.get('/', function (req, res) {
+    res.render(viewsPath + '/*');
+});
 app.get('/*', (req, res) => {
     res.render('404.html', {
         title: '404',
