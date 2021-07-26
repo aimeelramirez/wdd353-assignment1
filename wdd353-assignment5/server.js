@@ -4,12 +4,14 @@
 
 const https = require('https');
 const fs = require('fs')
+const url = require('url');
 
 
 let ejs = require('ejs');
 const path = require('path');
 
-// const sessions = require('express-session')
+const session = require('express-session')
+let sess;
 // const url = require('url');
 //cert
 const options = require('./config')
@@ -61,8 +63,11 @@ app.use(express.static(publicPath));
 app.use(express.static(path.join(__dirname, 'public/css')));
 // //gets  the js to be dynamic
 app.use(express.static(path.join(__dirname, 'public/js')));
+//use session
+app.use(session({ secret: "secret", saveUninitialized: true, resave: true }))
 //use router
 app.use('/', router)
+
 
 /*  Encrypt  */
 
@@ -88,18 +93,25 @@ function decrypt(text) {
 
 router.get("/dashboard", function (req, res) {
     // console.log(req.body)
+    sess = req.session
+
     res.render('dashboard', {
         title: 'DASHBOARD',
-        message: "take a look at the console."
+        message: "take a look at the console.",
+        session: sess
     })
     res.end();
 
 })
 router.get("/data", function (req, res) {
+    sess = req.session
+
     console.log(JSON.stringify(req.body))
     res.render('404', {
         title: 'DATA',
         message: "take a look at the console."
+        ,
+        session: sess
     })
     res.end();
 
@@ -107,10 +119,13 @@ router.get("/data", function (req, res) {
 
 router.post("/data", function (req, res) {
     console.log(req.body)
+    sess = req.session
 
     res.render('404', {
         title: 'DATA',
         message: JSON.stringify(req.body)
+        ,
+        session: sess
     })
     let data = JSON.stringify(req.body).toString()
     fs.writeFile("public/js/data.txt", data, (err) => {
@@ -125,75 +140,111 @@ router.post("/data", function (req, res) {
 })
 
 
-router.post("/auth", (req, res) => {
-    //get auth
-    controller.signup(req, res)
-    res.end();
+// router.post("/auth", (req, res) => {
+//     //get auth
+//     controller.signup(req, res)
+//     res.end();
 
-})
-/*
-Email:Mike@aol.com
-Password:abc123
- */
+// })
+
+const auth = (req, res) => {
+    let errors = [];
+    if (req.body.email !== "Mike@aol.com") {
+        errors.push('not the right user, try again.')
+    }
+    if (req.body.password !== "abc123") {
+        errors.push('not the right user, try again.')
+    }
+    return errors
+}
+
 router.post("/login", (req, res) => {
     //get auth
-    controller.signup(req, res)
-    res.end();
+    controller.login(req, res)
+    sess = req.session
+    sess.loggedIn = true
+    console.log(sess)
+
+    if (sess.loggedIn) {
+        res.setHeader('Content-Type', 'text/html')
+        res.redirect('/profile')
+        // res.write('<p>views: ' + req.session.loggedIn + '</p>')
+        res.end()
+    } else {
+
+        res.render('index', {
+            title: 'HOME',
+            message: 'Back to Home page.',
+            session: sess
+        })
+    }
+    // res.end();
 
 })
 router.get("/profile", (req, res) => {
-    console.log('Sub Pages');
-    res.render('profile', {
+    console.log('Sub Pages - Profile');
+    sess = req.session
+
+    return res.render('profile', {
         title: 'PROFILE',
-        message: 'Page not found.'
+        message: 'Hello this is redirected.',
+        session: sess
     })
 })
 router.get("/overview", (req, res) => {
     console.log('Sub Pages');
+    sess = req.session
+
     res.render('overview', {
         title: 'OVERVIEW',
-        message: 'Page not found.'
+        message: 'Page not found.',
+        session: sess
     })
 })
 
 
 
 router.get("/index", (req, res) => {
+    sess = req.session
+
     res.render('index', {
         title: 'HOME',
-        message: "Welcome!"
+        message: "Welcome!",
+        session: sess
     })
 })
 router.get('/', function (req, res) {
+    sess = req.session
+
     res.render('index', {
         title: 'HOME',
-        message: 'Welcome!'
-    });
+        message: 'Welcome!',
+        session: sess
+    })
 });
 
 router.get("/404", (req, res) => {
+    sess = req.session
+
     res.render('404', {
         title: '404',
-        message: 'Page not found.'
+        message: 'Page not found.',
+        session: sess
     })
 })
 
 router.get('/*', (req, res) => {
+    sess = req.session
+
     res.render('404', {
         title: '404',
-        message: 'Page not found.'
+        message: 'Page not found.',
+        session: sess
     })
 })
 
 
 //ssl
-// https
-//     .createServer(options, app, api, (req, res) => {
-//         // app.listen(port, () => {
-//         console.log(`server is listening at post ${port}.`)
-//         // })
-//     }).listen(port);
-
 https
     .createServer(options, app, (req, res) => {
         // app.listen(port, () => {

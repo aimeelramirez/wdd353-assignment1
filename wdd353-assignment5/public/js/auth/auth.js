@@ -12,24 +12,23 @@ window.onload = () => {
     let authPassword = document.getElementById("inputPassword4");
 
 
-    authEmail.value = "test@gmail.com";
+    authEmail.value = "Mike@aol.com";
     authPassword.value = "abc123"
 
-    let submitButton = document.querySelector("#signup");
+    let loginButton = document.querySelector("#login");
     //get the button disabled before submit
 
     let store = [];
     const successBanner = (event, store) => {
         event.preventDefault()
         console.log(store)
-        const formData = new FormData();
 
         // localStorage.setItem('data', JSON.stringify(store))
         // let dataArray = [
         //     authEmail.value,
         //     authPassword.value
         // ]
-        fetch('https://localhost:8080/auth', {
+        fetch('https://localhost:8080/login', {
             method: 'POST', // or 'PUT'
             // headers: {
             //     'Accept': '*/*',
@@ -43,11 +42,13 @@ window.onload = () => {
             body: JSON.stringify(store)
 
         }).then(response => {
-            response.json().then(data => {
-                alert(data)
-                document.getElementById('list-users').innerHTML += `<li>` + JSON.stringify(data) + '</li>'
-            })
+            return response.json()
+        }).then((data) => {
+            console.log(data)
         })
+
+        document.getElementById('notify').innerHTML += `<li>` + JSON.stringify(store) + '</li>'
+
     }
 
     /* START submitForm */
@@ -72,12 +73,12 @@ window.onload = () => {
         //     }
         // };
         let validateEmail = () => {
-            var emailID = email.value
+            var emailID = authEmail.value
             let atpos = emailID.indexOf("@");
             let dotpos = emailID.lastIndexOf(".");
 
             if (atpos < 1 || dotpos - atpos < 2) {
-                addElement(notify, email)
+                addElement(notify, authEmail)
                 boolEmail = false;
             } else {
                 boolEmail = true;
@@ -148,7 +149,7 @@ window.onload = () => {
                 addElement(notify, authEmail)
 
             } else {
-                boolEmail = true
+                validateEmail()
             }
             if (authPassword.value == "") {
                 addElement(notify, authPassword)
@@ -179,10 +180,15 @@ window.onload = () => {
             successBanner(event, data)
         }
     }
-    submitButton.addEventListener("click", (e) => {
+    loginButton.addEventListener("click", (e) => {
         e.preventDefault()
         submitForm(e)
     }, false);
 
-
+    document.getElementById('logout').addEventListener("click", (e) => {
+        e.preventDefault()
+        fetch('https://localhost:8080/logout').then(response => {
+            response.json()
+        })
+    }, false);
 };
