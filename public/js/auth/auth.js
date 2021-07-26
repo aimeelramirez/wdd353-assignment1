@@ -38,7 +38,8 @@ window.onload = () => {
         })
 
         // document.querySelector('h2').innerHTML = "Successfully logged in!"
-        document.getElementById('notify').innerHTML += `<li>` + JSON.stringify(store) + '</li>'
+        document.getElementById('notify').innerHTML = `<h3> Checking email... </h3>`
+        document.getElementById('notify').innerHTML += `<li>` + JSON.stringify(store.email) + '</li>'
 
     }
 

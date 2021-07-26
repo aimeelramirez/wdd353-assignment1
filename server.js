@@ -108,13 +108,13 @@ async function run(input) {
     // console.log("password2 ", await verify(input, JSON.parse(result)))
     // console.log("password1", await verify(input, password1))
     if (resultPassword === verifyPassword) {
-        console.log("match: ", JSON.stringify(password1))
+        // console.log("match: ", JSON.stringify(password1))
         return "matched"
     } else {
         return "no match"
     }
 }
-const verifyAuth = (req, res) => {
+const verifyAuth = async (req, res) => {
     sess = req.session
 
     let errors = [];
@@ -122,7 +122,7 @@ const verifyAuth = (req, res) => {
         errors.push('Not the right email for user, try again.')
     }
     //hash it
-    let checkHash = run(req.body.password)
+    let checkHash = await run(req.body.password)
 
     if (checkHash === "no match") {
         errors.push('Not the right User on hashed password. Try Again.')
@@ -182,7 +182,7 @@ router.post("/data", function (req, res) {
 
 
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
     //get auth
     console.log('Sub Pages- Dashboard');
     //get logic for email and password
@@ -190,7 +190,7 @@ router.post("/login", (req, res) => {
     //set sess
     sess = req.session
     //check auth
-    let checkAuth = verifyAuth(req, res)
+    let checkAuth = await verifyAuth(req, res)
     // console.log(checkAuth)
     if (checkAuth.length <= 0) {
         //pass the session 
