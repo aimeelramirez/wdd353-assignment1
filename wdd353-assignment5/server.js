@@ -70,11 +70,65 @@ app.use('/', router)
 
 
 /*  Encrypt  */
+async function hash(password) {
+    return new Promise((resolve, reject) => {
+        const salt = crypto.randomBytes(8).toString("hex")
+        crypto.scrypt(password, salt, 24, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(salt + ":" + derivedKey.toString('hex'))
+        });
+    })
+}
 
+async function verify(password, hash) {
+    return new Promise((resolve, reject) => {
+        const [salt, key] = hash.split(":")
+        crypto.scrypt(password, salt, 24, (err, derivedKey) => {
+            if (err) reject(err);
+            // let encryptedText = Buffer.from(derivedKey, 'hex');
+            // let test = derivedKey.toString('hex')
+            resolve(key == derivedKey.toString('hex'))
+        });
+    })
+}
+
+async function run(input) {
+    let password1 = await hash(input)
+
+    let promise = new Promise((resolve, reject) => {
+        fs.readFile('public/js/auth/verify.txt', 'utf-8', (err, data) => {
+            if (err) throw err;
+            resolve(data + "\n")
+        });
+    });
+    let result = await promise;
+    let verifyPassword = await verify(input, JSON.parse(result))
+    let resultPassword = await verify(input, password1)
+    // console.log("password2 ", await verify(input, JSON.parse(result)))
+    // console.log("password1", await verify(input, password1))
+    if (resultPassword === verifyPassword) {
+        console.log("match")
+        return "match"
+    } else {
+        return "no match"
+    }
+
+
+}
 function encrypt(text) {
     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
     let encrypted = cipher.update(text);
     encrypted = Buffer.concat([encrypted, cipher.final()]);
+    let sendData = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+    fs.writeFile("public/js/auth/verify.txt", JSON.stringify(sendData), (err) => {
+        if (err)
+            console.log(err);
+        else {
+            console.log("File written successfully\n");
+            console.log("The written has the following contents:");
+            console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
+        }
+    });
     return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 
@@ -97,7 +151,7 @@ router.get("/dashboard", function (req, res) {
 
     res.render('dashboard', {
         title: 'DASHBOARD',
-        message: "take a look at the console.",
+        message: "Profile is authenicated.",
         session: sess
     })
     res.end();
@@ -109,7 +163,7 @@ router.get("/data", function (req, res) {
     console.log(JSON.stringify(req.body))
     res.render('404', {
         title: 'DATA',
-        message: "take a look at the console."
+        message: "Profile is authenicated."
         ,
         session: sess
     })
@@ -150,17 +204,30 @@ router.post("/data", function (req, res) {
 const auth = (req, res) => {
     let errors = [];
     if (req.body.email !== "Mike@aol.com") {
-        errors.push('not the right user, try again.')
+        errors.push('Not the right email for user, try again.')
     }
-    if (req.body.password !== "abc123") {
-        errors.push('not the right user, try again.')
+    //hash it
+    let checkHash = run(req.body.password)
+    //created this to get the verify on password.
+    // let data = JSON.stringify(password1).toString()
+    // fs.writeFile("public/js/auth/verify.txt", data, (err) => {
+    //     if (err)
+    //         console.log(err);
+    //     else {
+    //         console.log("File written successfully\n");
+    //         console.log("The written has the following contents:");
+    //         console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
+    //     }
+    // });
+    if (checkHash === "no match") {
+        errors.push('Not the right User on hashed password. Try Again.')
     }
     return errors
 }
 
 router.post("/login", (req, res) => {
     //get auth
-    console.log('Sub Pages - Dashboard');
+    console.log('Sub Pages- Dashboard');
 
     controller.login(req, res)
     sess = req.session
@@ -168,44 +235,61 @@ router.post("/login", (req, res) => {
     console.log(checkAuth)
     if (checkAuth.length <= 0) {
         sess.loggedIn = true
+        sess.userEmail = req.body.email
         console.log(sess)
-        if (sess.loggedIn) {
-            req.session.destroy();
+        return res.redirect('/profile')
 
-            res.setHeader('Content-Type', 'text/html')
-            res.redirect('/profile')
-            // res.write('<p>views: ' + req.session.loggedIn + '</p>')
-            res.end()
-        }
     } else {
-        console.log('Sub Pages - Dashboard still');
+        console.log('Sub Pages- Dashboard - Error User');
 
         res.render('index', {
             title: 'HOME',
             message: 'Back to Home page.',
             session: sess
         })
+
     }
     // res.end();
 
 })
 router.get("/profile", (req, res) => {
     sess = req.session
-    res.render('profile', {
-        title: 'PROFILE',
-        message: 'Hello this is redirected.',
-        session: sess
-    })
-    console.log('Sub Pages - Profile');
+
+    if (sess.loggedIn) {
+        res.render('profile', {
+            title: 'PROFILE',
+            message: 'Profile is authenicated.',
+            session: sess
+        })
+        console.log('Sub Pages - Profile Signed In');
+        console.log(sess)
+
+    } else {
+        res.render('404', {
+            title: '404',
+            message: 'Profile is private sorry.',
+            session: sess
+        })
+    }
+
+    res.end()
+
+
+})
+router.get("/logout", (req, res) => {
+    console.log('Sub Pages- Dashboard - logout');
+
+    sess = req.session
+    sess.loggedIn = false
+    res.end()
 
 })
 router.get("/overview", (req, res) => {
     console.log('Sub Pages - Overview');
     sess = req.session
-
     res.render('overview', {
         title: 'OVERVIEW',
-        message: 'Page not found.',
+        message: 'Overview is here after authenication.',
         session: sess
     })
 })
@@ -214,21 +298,36 @@ router.get("/overview", (req, res) => {
 
 router.get("/index", (req, res) => {
     sess = req.session
-
-    res.render('index', {
-        title: 'HOME',
-        message: "Welcome!",
-        session: sess
-    })
+    if (sess.loggedIn) {
+        res.render('index', {
+            title: 'HOME',
+            message: `Welcome signed in ${sess.userEmail}!`,
+            session: sess
+        })
+    } else {
+        res.render('index', {
+            title: 'HOME',
+            message: 'Welcome!',
+            session: sess
+        })
+    }
 })
 router.get('/', function (req, res) {
     sess = req.session
+    if (sess.loggedIn) {
+        res.render('index', {
+            title: 'HOME',
+            message: 'Welcome signed in User!',
+            session: sess
+        })
+    } else {
 
-    res.render('index', {
-        title: 'HOME',
-        message: 'Welcome!',
-        session: sess
-    })
+        res.render('index', {
+            title: 'HOME',
+            message: 'Welcome!',
+            session: sess
+        })
+    }
 });
 
 router.get("/404", (req, res) => {
