@@ -22,18 +22,8 @@ window.onload = () => {
     const successBanner = (event, store) => {
         event.preventDefault()
         console.log(store)
-
-        // localStorage.setItem('data', JSON.stringify(store))
-        // let dataArray = [
-        //     authEmail.value,
-        //     authPassword.value
-        // ]
         fetch('https://localhost:8080/login', {
             method: 'POST', // or 'PUT'
-            // headers: {
-            //     'Accept': '*/*',
-            //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            // },
             headers: {
                 'Accept': '*/*',
 
@@ -47,6 +37,7 @@ window.onload = () => {
             console.log(data)
         })
 
+        // document.querySelector('h2').innerHTML = "Successfully logged in!"
         document.getElementById('notify').innerHTML += `<li>` + JSON.stringify(store) + '</li>'
 
     }
@@ -190,5 +181,8 @@ window.onload = () => {
         fetch('https://localhost:8080/logout').then(response => {
             response.json()
         })
+        document.querySelector('h2').innerHTML = 'Logged out! Please sign in on dashboard.'
+        document.getElementById('notify').innerHTML = ""
+
     }, false);
 };

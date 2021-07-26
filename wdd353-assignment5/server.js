@@ -4,12 +4,9 @@
 
 const https = require('https');
 const fs = require('fs')
-const url = require('url');
-
-
+const crypto = require('crypto');
 let ejs = require('ejs');
 const path = require('path');
-
 const session = require('express-session')
 let sess;
 // const url = require('url');
@@ -21,11 +18,6 @@ const options = require('./config')
 const controller = require("./public/js/auth/controller")
 
 
-// Nodejs encryption with CTR
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
 
 
 //get api express
@@ -68,7 +60,6 @@ app.use(session({ secret: "secret", saveUninitialized: true, resave: true }))
 //use router
 app.use('/', router)
 
-
 /*  Encrypt  */
 async function hash(password) {
     return new Promise((resolve, reject) => {
@@ -94,7 +85,17 @@ async function verify(password, hash) {
 
 async function run(input) {
     let password1 = await hash(input)
-
+    //created this to get the verify on password.
+    // let data = JSON.stringify(password1).toString()
+    // fs.writeFile("public/js/auth/verify.txt", data, (err) => {
+    //     if (err)
+    //         console.log(err);
+    //     else {
+    //         console.log("File written successfully\n");
+    //         console.log("The written has the following contents:");
+    //         console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
+    //     }
+    // });
     let promise = new Promise((resolve, reject) => {
         fs.readFile('public/js/auth/verify.txt', 'utf-8', (err, data) => {
             if (err) throw err;
@@ -107,43 +108,29 @@ async function run(input) {
     // console.log("password2 ", await verify(input, JSON.parse(result)))
     // console.log("password1", await verify(input, password1))
     if (resultPassword === verifyPassword) {
-        console.log("match")
-        return "match"
+        console.log("match: ", JSON.stringify(password1))
+        return "matched"
     } else {
         return "no match"
     }
-
-
 }
-function encrypt(text) {
-    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let encrypted = cipher.update(text);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    let sendData = { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-    fs.writeFile("public/js/auth/verify.txt", JSON.stringify(sendData), (err) => {
-        if (err)
-            console.log(err);
-        else {
-            console.log("File written successfully\n");
-            console.log("The written has the following contents:");
-            console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
-        }
-    });
-    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+const verifyAuth = (req, res) => {
+    sess = req.session
+
+    let errors = [];
+    if (req.body.email !== "Mike@aol.com") {
+        errors.push('Not the right email for user, try again.')
+    }
+    //hash it
+    let checkHash = run(req.body.password)
+
+    if (checkHash === "no match") {
+        errors.push('Not the right User on hashed password. Try Again.')
+    }
+    return errors
 }
 
-function decrypt(text) {
-    let iv = Buffer.from(text.iv, 'hex');
-    let encryptedText = Buffer.from(text.encryptedData, 'hex');
-    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
-}
 
-// var hw = encrypt("Some serious stuff")
-// console.log(hw)
-// console.log(decrypt(hw))
 
 router.get("/dashboard", function (req, res) {
     // console.log(req.body)
@@ -194,54 +181,28 @@ router.post("/data", function (req, res) {
 })
 
 
-// router.post("/auth", (req, res) => {
-//     //get auth
-//     controller.signup(req, res)
-//     res.end();
-
-// })
-
-const auth = (req, res) => {
-    let errors = [];
-    if (req.body.email !== "Mike@aol.com") {
-        errors.push('Not the right email for user, try again.')
-    }
-    //hash it
-    let checkHash = run(req.body.password)
-    //created this to get the verify on password.
-    // let data = JSON.stringify(password1).toString()
-    // fs.writeFile("public/js/auth/verify.txt", data, (err) => {
-    //     if (err)
-    //         console.log(err);
-    //     else {
-    //         console.log("File written successfully\n");
-    //         console.log("The written has the following contents:");
-    //         console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
-    //     }
-    // });
-    if (checkHash === "no match") {
-        errors.push('Not the right User on hashed password. Try Again.')
-    }
-    return errors
-}
 
 router.post("/login", (req, res) => {
     //get auth
     console.log('Sub Pages- Dashboard');
-
+    //get logic for email and password
     controller.login(req, res)
+    //set sess
     sess = req.session
-    let checkAuth = auth(req, res)
-    console.log(checkAuth)
+    //check auth
+    let checkAuth = verifyAuth(req, res)
+    // console.log(checkAuth)
     if (checkAuth.length <= 0) {
+        //pass the session 
         sess.loggedIn = true
         sess.userEmail = req.body.email
+
+        //check sessions
         console.log(sess)
         return res.redirect('/profile')
 
     } else {
         console.log('Sub Pages- Dashboard - Error User');
-
         res.render('index', {
             title: 'HOME',
             message: 'Back to Home page.',
@@ -254,8 +215,8 @@ router.post("/login", (req, res) => {
 })
 router.get("/profile", (req, res) => {
     sess = req.session
-
     if (sess.loggedIn) {
+        console.log(sess)
         res.render('profile', {
             title: 'PROFILE',
             message: 'Profile is authenicated.',
@@ -271,9 +232,7 @@ router.get("/profile", (req, res) => {
             session: sess
         })
     }
-
     res.end()
-
 
 })
 router.get("/logout", (req, res) => {
@@ -301,7 +260,7 @@ router.get("/index", (req, res) => {
     if (sess.loggedIn) {
         res.render('index', {
             title: 'HOME',
-            message: `Welcome signed in ${sess.userEmail}!`,
+            message: `Welcome, Currently authenicated as ${sess.userEmail}!`,
             session: sess
         })
     } else {
@@ -317,14 +276,14 @@ router.get('/', function (req, res) {
     if (sess.loggedIn) {
         res.render('index', {
             title: 'HOME',
-            message: 'Welcome signed in User!',
+            message: `Welcome, authenicated as ${sess.userEmail}!`,
             session: sess
         })
     } else {
 
         res.render('index', {
             title: 'HOME',
-            message: 'Welcome!',
+            message: 'Welcome! Please sign in on dashboard.',
             session: sess
         })
     }
