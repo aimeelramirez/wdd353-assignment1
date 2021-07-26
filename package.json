@@ -1,19 +1,19 @@
 {
-  "name": "wdd353",
+  "name": "wdd353-assignment5",
   "version": "1.0.0",
   "description": "Assignment #5 Login",
   "main": "index.js",
   "scripts": {
     "preinstall": "test \"$(node -v)\" != \"$(cat .nvmrc)\" && { unset npm_package_scripts_preinstall npm_config_prefix npm_lifecycle_script && . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) --reinstall-packages-from=current --skip-default-packages && nvm use node; } || echo",
-    "serve": "nodemon --cwd /var/www/html/wdd353-assignment5/webServer.js ",
-    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon server.js",
+    "err_start": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "express-es6-template-engine": "^2.2.3",
+    "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.12",
     "path": "^0.12.7",

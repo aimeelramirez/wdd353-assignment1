@@ -1,40 +1,32 @@
-const jwt = require("jsonwebtoken")
-
-
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.")
-}
-//get all
-
-exports.userBoard = (req, res) => {
-    res.status(200).send({
-        message: "Hello from Users endpoint! You are authenicated.",
-    })
-}
+// Nodejs encryption with CTR
+const crypto = require('crypto');
 
 
 
-exports.signin = (req, res) => {
-    console.log("sign in : ", JSON.stringify(req.body))
+let sess;
 
-    var token = jwt.sign({ id: req.body.email }, 'aimee-secret-key', {
-        expiresIn: 86400, // 24 hours
-    })
+exports.login = (req, res) => {
+    console.log("login: ", JSON.stringify(req.body))
+    sess = req.session
+    let errors = [];
+    console.log(typeof req.body)
+    for (let [key, value] of Object.entries(req.body)) {
+        // console.log(`${key}: ${value}`);
+        if (value === "") {
+            errors.push(`${key} is required.`)
+        }
+        let regxEmail = !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email);
+        if (regxEmail) {
+            errors.push("Email is not valid.")
+        }
+        let regxPassword = !/^[a-zA-Z]\w{3,14}$/.test(req.body.password)
+        if (regxPassword) {
+            errors.push("Password is not valid.")
+
+        }
 
 
-    res.status(200).send({
-        email: req.body.email,
-        password: req.body.password,
-        accessToken: token,
-    })
-}
+        return errors
 
-exports.signup = (req, res) => {
-    console.log("sign up: ", JSON.stringify(req.body))
-
-    res.status(200).send({
-        email: req.body.email,
-        password: req.body.password,
-
-    })
+    }
 }
