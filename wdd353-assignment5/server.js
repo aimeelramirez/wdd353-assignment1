@@ -55,87 +55,89 @@ app.use(express.static(publicPath));
 app.use(express.static(path.join(__dirname, 'public/css')));
 // //gets  the js to be dynamic
 app.use(express.static(path.join(__dirname, 'public/js')));
+
+
 //use session
-app.use(session({ secret: "secret", saveUninitialized: true, resave: true }))
+app.use(session({ secret: "secret", saveUninitialized: true, resave: false }))
 //use router
 app.use('/', router)
 
 /*  Encrypt  */
-async function hash(password) {
-    return new Promise((resolve, reject) => {
-        const salt = crypto.randomBytes(8).toString("hex")
-        crypto.scrypt(password, salt, 24, (err, derivedKey) => {
-            if (err) reject(err);
-            resolve(salt + ":" + derivedKey.toString('hex'))
-        });
-    })
-}
+// async function hash(password) {
+//     return new Promise((resolve, reject) => {
+//         const salt = crypto.randomBytes(8).toString("hex")
+//         crypto.scrypt(password, salt, 24, (err, derivedKey) => {
+//             if (err) reject(err);
+//             resolve(salt + ":" + derivedKey.toString('hex'))
+//         });
+//     })
+// }
 
-async function verify(password, hash) {
-    return new Promise((resolve, reject) => {
-        const [salt, key] = hash.split(":")
-        crypto.scrypt(password, salt, 24, (err, derivedKey) => {
-            if (err) reject(err);
-            // let encryptedText = Buffer.from(derivedKey, 'hex');
-            // let test = derivedKey.toString('hex')
-            resolve(key == derivedKey.toString('hex'))
-        });
-    })
-}
+// async function verify(password, hash) {
+//     return new Promise((resolve, reject) => {
+//         const [salt, key] = hash.split(":")
+//         crypto.scrypt(password, salt, 24, (err, derivedKey) => {
+//             if (err) reject(err);
+//             // let encryptedText = Buffer.from(derivedKey, 'hex');
+//             // let test = derivedKey.toString('hex')
+//             resolve(key == derivedKey.toString('hex'))
+//         });
+//     })
+// }
 
-async function run(input) {
-    let password1 = await hash(input)
-    //created this to get the verify on password.
-    // let data = JSON.stringify(password1).toString()
-    // fs.writeFile("public/js/auth/verify.txt", data, (err) => {
-    //     if (err)
-    //         console.log(err);
-    //     else {
-    //         console.log("File written successfully\n");
-    //         console.log("The written has the following contents:");
-    //         console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
-    //     }
-    // });
-    let promise = new Promise((resolve, reject) => {
-        fs.readFile('public/js/auth/verify.txt', 'utf-8', (err, data) => {
-            if (err) throw err;
-            resolve(data + "\n")
-        });
-    });
-    let result = await promise;
-    let verifyPassword = await verify(input, JSON.parse(result))
-    let resultPassword = await verify(input, password1)
-    // console.log("password2 ", await verify(input, JSON.parse(result)))
-    // console.log("password1", await verify(input, password1))
-    if (resultPassword === verifyPassword) {
-        // console.log("match: ", JSON.stringify(password1))
-        return "matched"
-    } else {
-        return "no match"
-    }
-}
-const verifyAuth = async (req, res) => {
-    sess = req.session
+// async function run(input) {
+//     let password1 = await hash(input)
+//     //created this to get the verify on password.
+//     // let data = JSON.stringify(password1).toString()
+//     // fs.writeFile("public/js/auth/verify.txt", data, (err) => {
+//     //     if (err)
+//     //         console.log(err);
+//     //     else {
+//     //         console.log("File written successfully\n");
+//     //         console.log("The written has the following contents:");
+//     //         console.log(fs.readFileSync("public/js/auth/verify.txt", "utf8"));
+//     //     }
+//     // });
+//     // let promise = new Promise((resolve, reject) => {
+//     //     fs.readFile('public/js/auth/verify.txt', 'utf-8', (err, data) => {
+//     //         if (err) throw err;
+//     //         resolve(data + "\n")
+//     //     });
+//     // });
+//     // let result = await promise;
+//     // let verifyPassword = await verify(input, JSON.parse(result))
+//     // let resultPassword = await verify(input, password1)
+//     // console.log("password2 ", await verify(input, JSON.parse(result)))
+//     console.log("password1", await verify(input, password1))
+//     if (await verify(input, password1) === true) {
+//         console.log("match: ", JSON.stringify(password1))
+//         return "matched"
+//     } else {
+//         return "no match"
+//     }
+// }
+// const verifyAuth = (req, res) => {
+//     sess = req.session
 
-    let errors = [];
-    if (req.body.email !== "Mike@aol.com") {
-        errors.push('Not the right email for user, try again.')
-    }
-    //hash it
-    let checkHash = await run(req.body.password)
+//     let errors = [];
+//     if (req.body.email !== "Mike@aol.com") {
+//         errors.push('Not the right email for user, try again.')
+//     }
+//     //hash it
+//     let checkHash = run(req.body.password)
 
-    if (checkHash === "no match") {
-        errors.push('Not the right User on hashed password. Try Again.')
-    }
-    return errors
-}
+//     if (checkHash === "no match") {
+//         errors.push('Not the right User on hashed password. Try Again.')
+//     }
+//     return errors
+// }
 
 
 
 router.get("/dashboard", function (req, res) {
     // console.log(req.body)
+    console.log('Sub Pages - Dashboard');
     sess = req.session
-
     res.render('dashboard', {
         title: 'DASHBOARD',
         message: "Profile is authenicated.",
@@ -182,35 +184,40 @@ router.post("/data", function (req, res) {
 
 
 
-router.post("/login", async (req, res) => {
+router.post("/login", (req, res) => {
     //get auth
-    console.log('Sub Pages- Dashboard');
+    console.log('Sub Pages - Dashboard - Login');
     //get logic for email and password
-    controller.login(req, res)
+    let checkErrors = controller.login(req, res)
     //set sess
     sess = req.session
     //check auth
-    let checkAuth = await verifyAuth(req, res)
+    // let checkAuth = verifyAuth(req, res)
     // console.log(checkAuth)
-    if (checkAuth.length <= 0) {
+
+    if (checkErrors.length <= 0) {
         //pass the session 
         sess.loggedIn = true
         sess.userEmail = req.body.email
-
         //check sessions
-        console.log(sess)
+        // sess.cookie.maxAge / 1000
         return res.redirect('/profile')
 
+
     } else {
-        console.log('Sub Pages- Dashboard - Error User');
+        console.log('Sub Pages - Dashboard - Error User');
         res.render('index', {
             title: 'HOME',
             message: 'Back to Home page.',
             session: sess
         })
+        res.end();
+
 
     }
-    // res.end();
+
+    res.end();
+
 
 })
 router.get("/profile", (req, res) => {
@@ -219,7 +226,7 @@ router.get("/profile", (req, res) => {
         console.log(sess)
         res.render('profile', {
             title: 'PROFILE',
-            message: 'Profile is authenicated.',
+            message: `Profile is authenicated as \n ${sess.userEmail}`,
             session: sess
         })
         console.log('Sub Pages - Profile Signed In');
@@ -236,8 +243,7 @@ router.get("/profile", (req, res) => {
 
 })
 router.get("/logout", (req, res) => {
-    console.log('Sub Pages- Dashboard - logout');
-
+    console.log('Sub Pages - Dashboard - logout');
     sess = req.session
     sess.loggedIn = false
     res.end()
@@ -260,7 +266,7 @@ router.get("/index", (req, res) => {
     if (sess.loggedIn) {
         res.render('index', {
             title: 'HOME',
-            message: `Welcome, Currently authenicated as ${sess.userEmail}!`,
+            message: `Welcome! Currently authenicated as ${sess.userEmail}!`,
             session: sess
         })
     } else {
@@ -276,7 +282,7 @@ router.get('/', function (req, res) {
     if (sess.loggedIn) {
         res.render('index', {
             title: 'HOME',
-            message: `Welcome, authenicated as ${sess.userEmail}!`,
+            message: `Welcome!\n Currently authenicated as ${sess.userEmail}!`,
             session: sess
         })
     } else {

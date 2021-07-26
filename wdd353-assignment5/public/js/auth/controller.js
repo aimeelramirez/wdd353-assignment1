@@ -2,11 +2,9 @@
 
 
 
-let sess;
 
 exports.login = (req, res) => {
     console.log("login: ", JSON.stringify(req.body))
-    sess = req.session
     let errors = [];
     console.log(typeof req.body)
     for (let [key, value] of Object.entries(req.body)) {
