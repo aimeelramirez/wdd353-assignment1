@@ -6,6 +6,7 @@
 window.onload = () => {
     console.log("auth")
     /* QUERIES */
+    // window.location.href = window.location.href
 
     /* START ids on input and textarea */
     let authEmail = document.getElementById("inputEmail4");
@@ -15,8 +16,8 @@ window.onload = () => {
     Email:Mike@aol.com
     Password:abc123
      */
-    // authEmail.value = "Mike@aol.com";
-    // authPassword.value = "abc123"
+    authEmail.value = "Mike@aol.com";
+    authPassword.value = "abc123"
 
     let loginButton = document.querySelector("#login");
     //get the button disabled before submit
