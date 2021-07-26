@@ -124,6 +124,14 @@ or
 
 ## Assignment #5 (Login)
 
+This is getting a login for one particular user.
+
+```
+Inside your login method create a conditional for:
+Email:Mike@aol.com
+Password:abc123
+```
+
 - Assignment link:
 
   - [Assignment #5](wdd353-assignment5/)
