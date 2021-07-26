@@ -1,5 +1,4 @@
-// Nodejs encryption with CTR
-const crypto = require('crypto');
+
 
 
 

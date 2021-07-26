@@ -1,29 +1,38 @@
 # WDD353
 
-## How to run project
+### How to run project
 
 - `npm run machine`
+
+or
+
 - `vagrant up`
 - `vagrant provision`
   - <code> vagrant provision</code> should build nvm, node, and python dependencies before ssh for development.
 - `vagrant ssh`
 
-## How to run exit
+## How to view project
+
+`https://localhost:8080`
+
+### How to run exit
 
 - In VM: `exit`
 - Clean: `npm run exit`
 
-### In Vagrant box
+## In Vagrant box
 
 - `cd /var/www/html bash scripts/install_rbenv.sh`
   - <code> bash scripts/install_rbenv.sh </code> should build ruby, rbenv, and ruby-build after ssh for development.
 
-## Build dependencies manually
+### Build dependencies manually
 
 - Ruby Package Manager:
   - `bash /scripts/install_rbenv.sh`
 - Python Package Manager:
   - `bash /scripts/install_pip.sh`
+- Node Package Manager:
+  - `bash /scripts/install_nvm.sh`
 
 ## Assignment #1 (Grader)
 

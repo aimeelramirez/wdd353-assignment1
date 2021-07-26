@@ -52,11 +52,22 @@ window.onload = () => {
             body: JSON.stringify(dataArray)
 
         }).then(response => {
+            setInterval(() => {
+                if (document.getElementById('notify') !== null) {
+                    let getClass = document.querySelectorAll('.alert-success');
+                    for (let i = 0; i < getClass.length; i++) {
+                        getClass[i].remove()
+                    }
+
+                }
+            }, 5000)
             console.log(response.status)
             return response.status
         }).catch((error) => {
             console.error('Error:', error);
         });
+        document.getElementById('notify').innerHTML = `<li>` + JSON.stringify(dataArray) + '</li>'
+
 
     }
 
@@ -80,7 +91,7 @@ window.onload = () => {
             //so this is saying  /^+ numbers 0-9 on {match number length exactly} [-. ] match char. exactly$/
             let regx = /^\+([0-9]{1})\(([0-9]{3})\)([0-9]{3})[-. ]([0-9]{4})$/;
             if (!phone.value.match(regx)) {
-                addElement(notify, phone)
+                addElement("alert-danger", notify, phone)
             } else {
                 boolPhone = true;
                 return phone.value;
@@ -92,7 +103,7 @@ window.onload = () => {
             let dotpos = emailID.lastIndexOf(".");
 
             if (atpos < 1 || dotpos - atpos < 2) {
-                addElement(notify, email)
+                addElement("alert-danger", notify, email)
                 boolEmail = false;
             } else {
                 boolEmail = true;
@@ -103,7 +114,7 @@ window.onload = () => {
             // console.log(checkNaN + ":" + el.item);
             if (checkNaN != true) {
 
-                addElement(notify, el)
+                addElement("alert-danger", notify, el)
             } else {
 
                 if (el.value === age.value) {
@@ -118,7 +129,7 @@ window.onload = () => {
             // console.log(check)
             let checkNaN = isNaN(check);
             if (checkNaN) {
-                addElement(notify, el)
+                addElement("alert-danger", notify, el)
             } else {
                 if (el.value === zip.value) {
                     // console.log(boolZip + ":" + el.value);
@@ -133,17 +144,17 @@ window.onload = () => {
                 boolMessage = true;
                 return message.value;
             } else {
-                addElement(notify, message)
+                addElement("alert-danger", notify, message)
 
             }
         };
 
 
-        function addElement(notify, type) {
+        function addElement(note, notify, type) {
             // create a new div element
             const newDiv = document.createElement("div");
             newDiv.id = "notify"
-            newDiv.className = "alert-warning"
+            newDiv.className = note
             newDiv.innerHTML = notify
             type.focus();
             const currentDiv = document.getElementById(type.id);
@@ -153,7 +164,7 @@ window.onload = () => {
 
         let validateString = () => {
             if (document.getElementById('notify') !== null) {
-                let getClass = document.querySelectorAll('.alert-warning');
+                let getClass = document.querySelectorAll('.alert-danger');
                 for (let i = 0; i < getClass.length; i++) {
                     getClass[i].remove()
                 }
@@ -161,51 +172,51 @@ window.onload = () => {
             }
             // console.log(`Sorry input can not be empty`);
             if (firstname.value == "") {
-                addElement(notify, firstname)
+                addElement("alert-danger", notify, firstname)
 
             } else {
                 boolFirstname = true
                 // boolFirstname = true
             }
             if (lastname.value == "") {
-                addElement(notify, lastname)
+                addElement("alert-danger", notify, lastname)
             }
             else {
                 boolLastname = true
             }
             if (zip.value == "") {
-                addElement(notify, zip)
+                addElement("alert-danger", notify, zip)
 
 
             } else {
                 validateStringNum(zip)
             }
             if (city.value == "") {
-                addElement(notify, city)
+                addElement("alert-danger", notify, city)
 
             } else {
                 boolCity = true
             }
             if (email.value == "") {
-                addElement(notify, email)
+                addElement("alert-danger", notify, email)
 
             } else {
                 validateEmail()
             }
             if (age.value == "") {
-                addElement(notify, age)
+                addElement("alert-danger", notify, age)
 
             } else {
                 validateStringNaN(age)
             }
             if (phone.value == "") {
-                addElement(notify, phone)
+                addElement("alert-danger", notify, phone)
 
             } else {
                 validatePhone()
             }
             if (message.value == "") {
-                addElement(notify, message)
+                addElement("alert-danger", notify, message)
 
             } else {
                 validateMessage()
@@ -225,7 +236,7 @@ window.onload = () => {
             boolEmail === true &&
             boolCity == true
         ) {
-            console.log(boolFirstname)
+            addElement("alert-success", "Success!", submitButton)
 
             let data = {
                 firstname: firstname.value,
@@ -248,23 +259,23 @@ window.onload = () => {
     submitButton.addEventListener("click", (e) => {
         e.preventDefault()
         submitForm(e)
+
     }, false);
-    fetch('https://localhost:8080/js/data.txt')
-        .then(response => response.json())
-        .then(data => {
-            let dataRead = []
-            for (const [key, value] of Object.entries(data)) {
-                // console.log(key);
-                // let getNewDiv = document.createElement('li')
-                // let splitList = key.split().join()
-                dataRead.push(key)
-                console.log(dataRead.length)
-                document.getElementById('notify').innerHTML += `<li>` + dataRead + '</li>'
-            }
+    // fetch('https://localhost:8080/js/data.txt')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         let dataRead = []
+    //         for (const [key, value] of Object.entries(data)) {
+    //             // console.log(key);
+    //             // let getNewDiv = document.createElement('li')
+    //             // let splitList = key.split().join()
+    //             dataRead.push(key)
+    //             console.log(dataRead.length)
+    //         }
 
 
 
-        })
+    //     })
 
 
 };
