@@ -134,7 +134,9 @@ Password:abc123
 
 - Assignment link:
 
-  - [Assignment #5](wdd353-assignment5/)
+- [Assignment #5 - Many Users to LOGIN](wdd353-assignment5/)
+
+- [One User Mike@aol.com and abc123 password](https://github.com/aimeelramirez/wdd353-assignments/tree/oneUser-assignment5-branch)
 
 - Template link:
 
