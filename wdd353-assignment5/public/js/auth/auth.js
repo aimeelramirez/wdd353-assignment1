@@ -11,9 +11,12 @@ window.onload = () => {
     let authEmail = document.getElementById("inputEmail4");
     let authPassword = document.getElementById("inputPassword4");
 
-
-    authEmail.value = "Mike@aol.com";
-    authPassword.value = "abc123"
+    /* Inside your login method create a conditional for only
+    Email:Mike@aol.com
+    Password:abc123
+     */
+    // authEmail.value = "Mike@aol.com";
+    // authPassword.value = "abc123"
 
     let loginButton = document.querySelector("#login");
     //get the button disabled before submit
@@ -25,7 +28,7 @@ window.onload = () => {
         fetch('https://localhost:8080/login', {
             method: 'POST', // or 'PUT'
             headers: {
-                'Accept': '*/*',
+                'Accept': '*/* ',
 
                 'Content-Type': 'application/json',
             },
