@@ -170,6 +170,8 @@ router.post("/login", (req, res) => {
         sess.loggedIn = true
         console.log(sess)
         if (sess.loggedIn) {
+            req.session.destroy();
+
             res.setHeader('Content-Type', 'text/html')
             res.redirect('/profile')
             // res.write('<p>views: ' + req.session.loggedIn + '</p>')

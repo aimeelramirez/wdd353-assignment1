@@ -99,16 +99,42 @@
 
 - Page links:
 
-  - [Dashboard file](wdd353-assignment3/views/dashboard.html)
+  - [Dashboard file](wdd353-assignment4/views/dashboard.html)
 
-  - [Profile file](wdd353-assignment3/views/profile.html)
+  - [Profile file](wdd353-assignment4/views/profile.html)
 
-  - [Overview file](wdd353-assignment3/views/overview.html)
+  - [Overview file](wdd353-assignment4/views/overview.html)
 
 - JS links:
 
-  - [JS folder](wdd353-assignment3/public/js)
+  - [JS folder](wdd353-assignment4/public/js)
 
 - Youtube link:
 
   - [Youtube](https://youtu.be/en9lDL2GhZ0)
+
+## Assignment #5 (Login)
+
+- Assignment link:
+
+  - [Assignment #5](wdd353-assignment5/)
+
+- Template link:
+
+  - [Simple Sidebar](https://startbootstrap.com/template/simple-sidebar)
+
+- Page links:
+
+  - [Dashboard file](wdd353-assignment5/views/dashboard.html)
+
+  - [Profile file](wdd353-assignment5/views/profile.html)
+
+  - [Overview file](wdd353-assignment5/views/overview.html)
+
+- JS links:
+
+  - [JS folder](wdd353-assignment5/public/js)
+
+- Youtube link:
+
+  - [Youtube](https://youtu.be/hIZvR_S8Imk)
