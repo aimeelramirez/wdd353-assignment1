@@ -160,17 +160,23 @@ const auth = (req, res) => {
 
 router.post("/login", (req, res) => {
     //get auth
+    console.log('Sub Pages - Dashboard');
+
     controller.login(req, res)
     sess = req.session
-    sess.loggedIn = true
-    console.log(sess)
-
-    if (sess.loggedIn) {
-        res.setHeader('Content-Type', 'text/html')
-        res.redirect('/profile')
-        // res.write('<p>views: ' + req.session.loggedIn + '</p>')
-        res.end()
+    let checkAuth = auth(req, res)
+    console.log(checkAuth)
+    if (checkAuth.length <= 0) {
+        sess.loggedIn = true
+        console.log(sess)
+        if (sess.loggedIn) {
+            res.setHeader('Content-Type', 'text/html')
+            res.redirect('/profile')
+            // res.write('<p>views: ' + req.session.loggedIn + '</p>')
+            res.end()
+        }
     } else {
+        console.log('Sub Pages - Dashboard still');
 
         res.render('index', {
             title: 'HOME',
@@ -182,17 +188,17 @@ router.post("/login", (req, res) => {
 
 })
 router.get("/profile", (req, res) => {
-    console.log('Sub Pages - Profile');
     sess = req.session
-
-    return res.render('profile', {
+    res.render('profile', {
         title: 'PROFILE',
         message: 'Hello this is redirected.',
         session: sess
     })
+    console.log('Sub Pages - Profile');
+
 })
 router.get("/overview", (req, res) => {
-    console.log('Sub Pages');
+    console.log('Sub Pages - Overview');
     sess = req.session
 
     res.render('overview', {
