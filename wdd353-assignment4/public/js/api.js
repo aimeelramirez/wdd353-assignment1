@@ -24,11 +24,13 @@ async function returnTrue() {
     let result = await promise;
     console.log(result)
     console.log(name);
+    // return result
 }
 returnTrue();
 
 //nine
 let str = "";
+let strName = "";
 
 // //one
 // function myname() {
@@ -36,8 +38,10 @@ let str = "";
 //     return "Here is my IP address"
 // }
 //eight
-let nameThis = async () => {
-    console.log("Here is my IP address")
+async function myname() {
+    //return a message //
+    let message = ("Here is my IP address " + strName)
+    return message
 }
 //two
 async function callHttpbin() {
@@ -73,11 +77,18 @@ async function callHttpbin() {
 }
 // five
 async function executeAsyncTask() {
-    const valueB = nameThis();
     const valueA = await callHttpbin()
-    let message = (valueB + ': ' + valueA)
+    strName += valueA;
+    //ten pass it in the myname(valueA) or to store it string globally like above
+    const valueB = await myname();
+    //, from :  on output  //nine
+    let message = (valueB + ', ' + valueA)
     console.log(message)
     //six
 }
 //seven
 executeAsyncTask()
+
+//// Output Here is my IP address 149.24.160.1, 149.24.160.1
+//Here is my IP address 000.00.000.0,  000.00.000.0
+
