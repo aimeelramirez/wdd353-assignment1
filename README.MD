@@ -157,3 +157,17 @@ Password:abc123
 - Youtube link:
 
   - [Youtube](https://youtu.be/sJLnk5CrzyA)
+
+## Assignment #6 (AWS)
+
+- Assignment link:
+
+  - [Assignment #6](wdd353-assignment6/)
+
+- File links:
+
+  - [JS file](wdd353-assignment6/app.js)
+
+- Youtube link:
+
+  - [Youtube](https://youtu.be/hMm8oKQk1v8)
