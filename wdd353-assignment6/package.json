@@ -2,9 +2,10 @@
   "name": "wdd353-assignment6",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "preinstall": "npm i express && npm i request",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -11,3 +11,5 @@ rbenv
 ./rbenv
 
 .vagrant
+
+fso-box.cer
