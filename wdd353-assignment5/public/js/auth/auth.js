@@ -26,7 +26,7 @@ window.onload = () => {
     const successBanner = (event, store) => {
         event.preventDefault()
         console.log(store)
-        fetch('https://localhost:8080/login', {
+        fetch('https://34.205.81.206:8080/login', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': '*/* ',
@@ -183,7 +183,7 @@ window.onload = () => {
 
     document.getElementById('logout').addEventListener("click", (e) => {
         e.preventDefault()
-        fetch('https://localhost:8080/logout').then(response => {
+        fetch('https://34.205.81.206:8080/logout').then(response => {
             response.json()
         })
         document.querySelector('h2').innerHTML = 'Logged out! Please sign in on dashboard.'

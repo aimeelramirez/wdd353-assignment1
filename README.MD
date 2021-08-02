@@ -13,7 +13,7 @@ or
 
 ## How to view project
 
-`https://localhost:8080`
+`https://34.205.81.206:8080`
 
 ### How to run exit
 

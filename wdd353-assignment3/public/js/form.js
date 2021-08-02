@@ -43,7 +43,7 @@ window.onload = () => {
             phone.value,
             message.value
         ]
-        fetch('https://localhost:8080/data', {
+        fetch('https://34.205.81.206:8080/data', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Accept': '*/*',
@@ -249,7 +249,7 @@ window.onload = () => {
         e.preventDefault()
         submitForm(e)
     }, false);
-    fetch('https://localhost:8080/js/data.txt')
+    fetch('https://34.205.81.206:8080/js/data.txt')
         .then(response => response.json())
         .then(data => {
             let dataRead = []
