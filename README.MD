@@ -179,7 +179,7 @@ Password:abc123
 
 - File links:
 
-- [JS file](wdd353-assignment6/server.js)
+- [JS file](wdd353-assignment7/server.js)
 
 - Youtube link:
 
