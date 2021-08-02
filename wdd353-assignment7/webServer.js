@@ -15,7 +15,7 @@ let sendUsers = `let users = [
     { "6": "aimee" }
 ]`
 
-console.log(`Starting up server.... https://34.205.81.206:${port}`)
+console.log(`Starting up server.... https://localhost:${port}`)
 //ssl
 https
     .createServer(options, (req, res) => {
