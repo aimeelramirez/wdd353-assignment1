@@ -1,6 +1,8 @@
 
 
 "use strict"
+const apiCall = require('./apiConfig');
+// const request = require('request')
 
 const https = require('https');
 const fs = require('fs')
@@ -11,11 +13,11 @@ const session = require('express-session')
 let sess;
 // const url = require('url');
 //cert
-const options = require('./config')
+const opts = require('./config')
 //call api to get to server from dir
 // const api = require('./public/js/api')
 //controller on signup for logic
-const controller = require("./public/js/auth/controller")
+const controller = require("./public/js/auth/controller");
 
 
 
@@ -198,41 +200,43 @@ router.post("/login", (req, res) => {
     //check auth
     // let checkAuth = verifyAuth(req, res)
     // console.log(checkAuth)
-    var email = req.body.email; // Complete the missing pieces
-    var password = req.body.password;// Complete the missing pieces
-    request("https://uo6359v34k.execute-api.us-east-1.amazonaws.com/new-stage", { json: true }, (err, response, body) => {
-        if (err) { return console.log(err) };
-        if (body.Count > 0) {
-            if (checkErrors.length <= 0) {
-                //pass the session 
-                sess.loggedIn = true
-                sess.userEmail = email
-                //check sessions
-                // sess.cookie.maxAge / 1000
-                return res.redirect('/profile')
-
-
-            } else {
-                console.log('Sub Pages - Dashboard - Error User');
-                res.render('index', {
-                    title: 'HOME',
-                    message: 'Back to Home page.',
-                    session: sess
-                })
-                res.end();
-
-
-            }
-        } else {
-            //DISPLAY ERROR RESPONSE
+    if (checkErrors.length <= 0) {
+        //pass the session 
+        sess.loggedIn = true
+        sess.userEmail = req.body.email
+        //check sessions
+        // sess.cookie.maxAge / 1000
+        // let items = [];
+        // items.push({ email: req.body.email, password: req.body.password });
+        let options = {
+            uri: 'https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod',
+            method: 'POST',
+            body: JSON.stringify({ email: req.body.email, password: req.body.password }),
+            headers: { "Content-Type": "application/json" }
         }
-    })
 
+
+        //make api promise
+        apiCall.getApiCall(options);
+
+        return res.redirect('/profile')
+
+
+    } else {
+        console.log('Sub Pages - Dashboard - Error User');
+        res.render('index', {
+            title: 'HOME',
+            message: 'Back to Home page.',
+            session: sess
+        })
+        res.end();
+
+
+    }
 
     res.end();
-
-
 })
+
 router.get("/profile", (req, res) => {
     sess = req.session
     if (sess.loggedIn) {
@@ -331,7 +335,7 @@ router.get('/*', (req, res) => {
 
 //ssl
 https
-    .createServer(options, app, (req, res) => {
+    .createServer(opts, app, (req, res) => {
         // app.listen(port, () => {
         console.log(`server is listening at post ${port}.`)
         // })
