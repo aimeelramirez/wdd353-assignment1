@@ -1,7 +1,7 @@
 
 
 "use strict"
-
+const apiCall = require('./apiConfig');
 const https = require('https');
 const fs = require('fs')
 const crypto = require('crypto');
@@ -198,41 +198,54 @@ router.post("/login", (req, res) => {
     //check auth
     // let checkAuth = verifyAuth(req, res)
     // console.log(checkAuth)
-    var email = req.body.email; // Complete the missing pieces
-    var password = req.body.password;// Complete the missing pieces
-    request("https://uo6359v34k.execute-api.us-east-1.amazonaws.com/new-stage", { json: true }, (err, response, body) => {
-        if (err) { return console.log(err) };
-        if (body.Count > 0) {
-            if (checkErrors.length <= 0) {
-                //pass the session 
-                sess.loggedIn = true
-                sess.userEmail = email
-                //check sessions
-                // sess.cookie.maxAge / 1000
-                return res.redirect('/profile')
-
-
-            } else {
-                console.log('Sub Pages - Dashboard - Error User');
-                res.render('index', {
-                    title: 'HOME',
-                    message: 'Back to Home page.',
-                    session: sess
-                })
-                res.end();
-
-
-            }
-        } else {
-            //DISPLAY ERROR RESPONSE
+    if (checkErrors.length <= 0) {
+        //pass the session 
+        sess.loggedIn = true
+        sess.userEmail = req.body.email
+        //check sessions
+        // sess.cookie.maxAge / 1000
+        let opt = {
+            hostname: 'https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod',
+            method: 'POST',
+            body: JSON.stringify(req.body),
+            headers: { "Content-Type": "application/json" }
         }
-    })
 
+        apiCall.make_API_call('https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod', req, function (res) {
+            console.log("statusCode: ", res.statusCode);
+            res.on('data', function (chunk) {
+                body += chunk;
+                console.log('body: ', body)
+            });
+            context.succeed('Success!!');
+        });
+
+        // reqPost.write({ email: req.email, password: req.password });
+
+        //    fetch("https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod", { json: true }, (err, response, body) => {
+        //         console.log("calling body:", body)
+
+        //         if (err) { return console.log(err) };
+
+        //     })
+        return res.redirect('/profile')
+
+
+    } else {
+        console.log('Sub Pages - Dashboard - Error User');
+        res.render('index', {
+            title: 'HOME',
+            message: 'Back to Home page.',
+            session: sess
+        })
+        res.end();
+
+
+    }
 
     res.end();
-
-
 })
+
 router.get("/profile", (req, res) => {
     sess = req.session
     if (sess.loggedIn) {
