@@ -1,0 +1,188 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Base -->
+    <base href="https://34.205.81.206:8080">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="/dashboard">Dashboard</a>
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a> -->
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="/overview">Overview</a>
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a> -->
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/profile">Profile</a>
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a> -->
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#!">Action</a>
+                                    <a class="dropdown-item" href="#!">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#!">Something else here</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid">
+                <h1 class="mt-4">Home Page</h1>
+                <%- include('partials/nav.ejs'); -%>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, aut enim earum dicta culpa
+                        quo!
+                        Quae iusto quia nostrum, unde laboriosam debitis ut aperiam at inventore quidem error!
+                        Exercitationem, reprehenderit!</p>
+                    <p>
+                        <code> Lorem ipsum </code> dolor sit amet consectetur adipisicing elit. Ad aut unde
+                        quibusdam,
+                        nesciunt vitae error mollitia explicabo nam quisquam consequuntur adipisci repellendus id
+                        officiis
+                        quo sapiente exercitationem sit enim est.
+                    </p>
+                    <ul id="list-users"></ul>
+
+            </div>
+            <section id="images"></section>
+            <ul id="notify"></ul>
+
+            <div class="container-fluid">
+                <h2><strong>Contact</strong> Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ex nunc, pretium sed
+                    ullamcorper
+                    ut, porta semper
+                    ligula. Donec et sem convallis, condimentum ipsum a, dictum dolor. Phasellus nulla
+                    nulla,
+                    condimentum ut
+                    tincidunt porttitor, finibus eget enim.</p>
+                <form method="post">
+
+
+                    <!-- First Name -->
+                    <p>
+                        <label class="form-label" for="firstname">First Name</label>
+                        <input class="form-control" type="text" name="firstname" id="firstname" class="required"
+                            placeholder="First Name" />
+                    </p>
+                    <!-- Last Name -->
+                    <p>
+                        <label class="form-label" for="lastname">Last Name</label>
+                        <input class="form-control" type="text" name="lastname" id="lastname" class="required"
+                            placeholder="Last Name" />
+                    </p>
+                    <p>
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input class="form-control" type="email" class="form-control" id="email"
+                            aria-describedby="emailHelp">
+                    </p>
+                    <p>
+                        <label class="form-label " for="city">City</label>
+                        <input class="form-control" type="text" name="city" id="city" class="required"
+                            placeholder="City" />
+                    </p>
+                    <p>
+                        <label class="form-label" for="zip">Zip</label>
+                        <input class="form-control" type="text" name="zip" id="zip" class="required"
+                            placeholder="Zip" />
+                    </p>
+                    <p>
+                        <label for="age">Age</label>
+                        <select class="form-select" id="age" name="age">
+                            <option>0 < 18</option>
+                            <option>18 +</option>
+                        </select>
+                    </p>
+                    <p>
+                    <div class="form-control choices">
+                        <input class="form-check-input" type="radio" id="contactChoice1" name="contact" value="she/her"
+                            checked>
+                        <label for="contactChoice1">she/her</label>
+
+                        <input class="form-check-input" type="radio" id="contactChoice2" name="contact" value="he/him">
+                        <label for="contactChoice2">he/him</label>
+
+                        <input class="form-check-input" type="radio" id="contactChoice3" name="contact"
+                            value="them/they">
+                        <label for="contactChoice3">them/they</label>
+                    </div>
+
+
+                    </p>
+                    <p>
+
+                        <input class="form-check-input" type="checkbox" id="subscribeNews" name="subscribe"
+                            value="newsletter">
+                        <label for="subscribeNews">Subscribe to newsletter?</label>
+
+                    </p>
+                    <p>
+                        <label class="form-label" for="phone">Phone</label>
+                        <input class="form-control" type="text" name="phone" id="phone" class="required"
+                            placeholder="Phone" />
+
+                    </p>
+
+                    <p>
+                        <label class="form-label" for="message">Bio</label>
+                        <textarea class="form-control" name="message" id="message" cols="30" rows="10"
+                            placeholder="Message"></textarea>
+                    </p>
+
+                    <p>
+                        <hr />
+                        <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+                    </p>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script defer src="js/scripts.js"></script>
+    <script defer src="js/form.js"></script>
+    <!-- <script type="module" src="js/api.js"></script> -->
+
+
+</body>
+
+</html>
