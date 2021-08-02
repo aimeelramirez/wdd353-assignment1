@@ -13,7 +13,7 @@ const session = require('express-session')
 let sess;
 // const url = require('url');
 //cert
-const options = require('./config')
+const opts = require('./config')
 //call api to get to server from dir
 // const api = require('./public/js/api')
 //controller on signup for logic
@@ -335,7 +335,7 @@ router.get('/*', (req, res) => {
 
 //ssl
 https
-    .createServer(options, app, (req, res) => {
+    .createServer(opts, app, (req, res) => {
         // app.listen(port, () => {
         console.log(`server is listening at post ${port}.`)
         // })
