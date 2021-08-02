@@ -170,4 +170,17 @@ Password:abc123
 
 - Youtube link:
 
-  - [Youtube](https://youtu.be/hMm8oKQk1v8)
+  - [Youtube Playlist](https://youtube.com/playlist?list=PLfCyPgplkH5DJGgz5rHSjWYSLhKuvS5U3)
+
+## Assignment #7 (Lambda)
+
+- Assignment link:
+  [Assignment #7](wdd353-assignment7/)
+
+- File links:
+
+- [JS file](wdd353-assignment6/server.js)
+
+- Youtube link:
+
+  - [Youtube Playlist](https://youtube.com/playlist?list=PLfCyPgplkH5BdAwMd9qgy3Sl5y2lpieEU)
