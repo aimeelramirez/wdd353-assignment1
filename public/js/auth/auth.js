@@ -16,7 +16,7 @@ window.onload = () => {
     Email:Mike@aol.com
     Password:abc123
      */
-    authEmail.value = "Mike@aol.com";
+    authEmail.value = "mike@aol.com";
     authPassword.value = "abc123"
 
     let loginButton = document.querySelector("#login");

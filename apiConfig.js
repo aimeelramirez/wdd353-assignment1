@@ -1,26 +1,28 @@
 const request = require('request')
 
 module.exports = {
-    /*
-    ** This method returns a promise
-    ** which gets resolved or rejected based
-    ** on the result from the API
-    */
-    make_API_call: function (url, req) {
-
+    /* This method returns a promise */
+    getApiCall: function (options) {
         return new Promise((resolve, reject) => {
-            request(url, { json: true }, (err, res, body) => {
-                body = { body: req.body }
-                if (err) reject(err)
-                console.log('api body: ', body)
-                if (body !== null) {
 
-                    resolve(body)
+            function callback(error, response, body) {
+                console.log(JSON.parse(body));
+                if (body.length > 0) {
+                    if (!options.uri) {
+                        return self.emit('error', new Error('options.uri is a required argument'))
+                    }
+                    if (!error) {
+                        // const info = JSON.parse(body);
+                        // console.log(info);
+                        resolve(body)
+                    }
                 } else {
-                    console.log('error')
+                    if (error) reject(error)
                 }
-            });
+            }
+            request(options, callback);
+
         })
+
     }
 }
-

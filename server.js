@@ -2,6 +2,8 @@
 
 "use strict"
 const apiCall = require('./apiConfig');
+// const request = require('request')
+
 const https = require('https');
 const fs = require('fs')
 const crypto = require('crypto');
@@ -15,7 +17,7 @@ const options = require('./config')
 //call api to get to server from dir
 // const api = require('./public/js/api')
 //controller on signup for logic
-const controller = require("./public/js/auth/controller")
+const controller = require("./public/js/auth/controller");
 
 
 
@@ -204,30 +206,19 @@ router.post("/login", (req, res) => {
         sess.userEmail = req.body.email
         //check sessions
         // sess.cookie.maxAge / 1000
-        let opt = {
-            hostname: 'https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod',
+        // let items = [];
+        // items.push({ email: req.body.email, password: req.body.password });
+        let options = {
+            uri: 'https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod',
             method: 'POST',
-            body: JSON.stringify(req.body),
+            body: JSON.stringify({ email: req.body.email, password: req.body.password }),
             headers: { "Content-Type": "application/json" }
         }
 
-        apiCall.make_API_call('https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod', req, function (res) {
-            console.log("statusCode: ", res.statusCode);
-            res.on('data', function (chunk) {
-                body += chunk;
-                console.log('body: ', body)
-            });
-            context.succeed('Success!!');
-        });
 
-        // reqPost.write({ email: req.email, password: req.password });
+        //make api promise
+        apiCall.getApiCall(options);
 
-        //    fetch("https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod", { json: true }, (err, response, body) => {
-        //         console.log("calling body:", body)
-
-        //         if (err) { return console.log(err) };
-
-        //     })
         return res.redirect('/profile')
 
 
